@@ -228,13 +228,34 @@
         .section {
             margin-bottom: 50px;
         }
+        
+        .resume-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), #c0392b);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .resume-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+        }
     </style>
 </head>
 <body>
     <header>
         <div class="header-content">
             <h1>Hassan Nader</h1>
-            <p>Mechanical Engineer | AI Researcher</p>
+            <p>Web App Developer</p>
             <nav>
                 <ul>
                     <li><a href="#about">About</a></li>
@@ -249,29 +270,40 @@
     <div class="container">
         <section id="about" class="bio">
             <h2>About Me</h2>
-            <p>I'm Hassan Nader, a Mechanical Engineer with a passion for AI and applying it to sectors like robotics, aerospace, and space technologies. My research focuses on using machine learning to solve complex engineering challenges in these fields.</p>
+            <p>Hi, my name is Hassan. I build things for the web. A passionate web app developer. I tend to make use of modern web technologies to build websites that look great, feel fantastic, and function correctly.</p>
+            <a href="#" class="resume-btn">Resume</a>
         </section>
 
         <section id="projects" class="section">
             <h2>Projects</h2>
             
             <div class="project">
-                <h3>AI-Based Sensor for Orientation Tracking</h3>
-                <p><strong>Research Project:</strong> Developed an AI-powered IMU orientation sensor using neural networks (LSTM) to track and predict 3D orientation between two IMUs. Includes designing a 3DOF mechanism (ball joint) for testing predictions.</p>
-                <p><strong>Technical Details:</strong> Uses two MPUs and a magnetometer, with 9 input features and 3 response outputs (J2, Y, Z axes). Implements sequential data splitting, tanh activation, min-max normalization, and 0.25 dropout to prevent overfitting.</p>
-                <p><strong>Visualization:</strong> Green for training, yellow for validation, red for testing.</p>
+                <h3>Modern E-commerce Platform</h3>
+                <p><strong>Full-stack Web Application:</strong> Developed a responsive e-commerce platform with React frontend and Node.js backend. Features include user authentication, product catalog, shopping cart, and secure payment processing.</p>
+                <p><strong>Technical Details:</strong> Implemented with React Hooks, Redux for state management, Express.js API, MongoDB database, and integrated Stripe for payments. Responsive design with CSS Grid and Flexbox.</p>
                 
-                <button class="download-btn" onclick="downloadFile('ai-sensor-project.zip')">
-                    📥 Download Project Files
+                <button class="download-btn" onclick="downloadFile('ecommerce-platform.zip')">
+                    📥 View Project Details
                 </button>
             </div>
             
             <div class="project">
-                <h3>MATLAB & Python Data Analysis</h3>
-                <p>Various projects involving data preprocessing, analysis, and visualization using MATLAB and Python with focus on machine learning and deep learning applications in engineering systems.</p>
+                <h3>Task Management Dashboard</h3>
+                <p><strong>Productivity Web App:</strong> Created a comprehensive task management dashboard with drag-and-drop functionality, team collaboration features, and real-time updates.</p>
+                <p><strong>Technical Details:</strong> Built with Vue.js, Vuex for state management, Firebase for real-time database, and Chart.js for analytics visualization. Features include project timelines, team assignments, and progress tracking.</p>
                 
-                <button class="download-btn" onclick="downloadFile('matlab-python-projects.zip')">
-                    📥 Download Project Files
+                <button class="download-btn" onclick="downloadFile('task-management.zip')">
+                    📥 View Project Details
+                </button>
+            </div>
+            
+            <div class="project">
+                <h3>Weather Forecast Application</h3>
+                <p><strong>Responsive Web Application:</strong> Developed a weather forecast app with location-based services, detailed weather information, and interactive maps.</p>
+                <p><strong>Technical Details:</strong> Utilized OpenWeather API, Geolocation API, and Chart.js for data visualization. Implemented with vanilla JavaScript, CSS animations, and responsive design principles.</p>
+                
+                <button class="download-btn" onclick="downloadFile('weather-app.zip')">
+                    📥 View Project Details
                 </button>
             </div>
         </section>
@@ -279,24 +311,26 @@
         <section id="skills" class="section">
             <h2>Technical Skills</h2>
             <div class="skills-list">
-                <span class="skill-tag">MATLAB</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">Machine Learning</span>
-                <span class="skill-tag">Deep Learning</span>
-                <span class="skill-tag">Data Analysis</span>
-                <span class="skill-tag">LSTM Networks</span>
-                <span class="skill-tag">Neural Networks</span>
-                <span class="skill-tag">Robotics</span>
-                <span class="skill-tag">Aerospace</span>
-                <span class="skill-tag">IMU Sensors</span>
-                <span class="skill-tag">Mechanical Design</span>
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">React</span>
+                <span class="skill-tag">Vue.js</span>
+                <span class="skill-tag">Node.js</span>
+                <span class="skill-tag">Express.js</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Firebase</span>
+                <span class="skill-tag">RESTful APIs</span>
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Responsive Design</span>
+                <span class="skill-tag">UI/UX Design</span>
             </div>
         </section>
 
         <section id="contact">
             <h2>Contact</h2>
-            <p>You can reach me at: <a href="mailto:hassanmohamednader@gmail.com">[Yhassanmohamednader@gmail.com]</a></p>
-            <p>Connect with me on <a href="#">[https://www.linkedin.com/in/hassannader/]</a>.</p>
+            <p>You can reach me at: <a href="mailto:hassan@example.com">hassan@example.com</a></p>
+            <p>Connect with me on <a href="#">LinkedIn</a> or check out my code on <a href="#">GitHub</a>.</p>
         </section>
     </div>
 
