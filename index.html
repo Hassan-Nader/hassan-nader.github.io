@@ -381,7 +381,7 @@
         /* ===== SKILLS SECTION ===== */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
         }
 
@@ -810,6 +810,10 @@
                 grid-template-columns: 1fr;
             }
 
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
             .projects-grid {
                 grid-template-columns: 1fr;
             }
@@ -842,7 +846,8 @@
         <div class="container">
             <div class="logo">HN</div>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon theme-toggle-icon moon-icon"></i>
+                <i class="fas fa-sun theme-toggle-icon sun-icon"></i>
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home">Home</a></li>
@@ -1004,8 +1009,8 @@
                             <span class="tech-tag">LSTM/GRU</span>
                             <span class="tech-tag">Deep Learning</span>
                         </div>
-                        <a href="#" class="project-link">
-                            View on GitHub <i class="fas fa-arrow-right"></i>
+                        <a href="projects/ai-orientation-tracking.html" class="project-link">
+                            See More Details <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -1037,8 +1042,8 @@
                             <span class="tech-tag">Random Forest</span>
                             <span class="tech-tag">API Integration</span>
                         </div>
-                        <a href="#" class="project-link">
-                            View on GitHub <i class="fas fa-arrow-right"></i>
+                        <a href="projects/nba-predictor.html" class="project-link">
+                            See More Details <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -1070,8 +1075,8 @@
                             <span class="tech-tag">CNN-LSTM</span>
                             <span class="tech-tag">Time-Series</span>
                         </div>
-                        <a href="#" class="project-link">
-                            View on GitHub <i class="fas fa-arrow-right"></i>
+                        <a href="projects/predictive-maintenance.html" class="project-link">
+                            See More Details <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
@@ -1196,12 +1201,12 @@
                     <a href="https://github.com/yourprofile" class="contact-link" target="_blank" title="GitHub">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="mailto:your.email@example.com" class="contact-link" title="Email">
+                    <a href="mailto:hassannaderofficial@gmail.com" class="contact-link" title="Email">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </div>
-                <a href="mailto:your.email@example.com" class="email-link">
-                    <i class="fas fa-paper-plane"></i> your.email@example.com
+                <a href="mailto:hassannaderofficial@gmail.com" class="email-link">
+                    <i class="fas fa-paper-plane"></i> hassannaderofficial@gmail.com
                 </a>
             </div>
         </div>
@@ -1219,12 +1224,10 @@
         // Theme Toggle Functionality
         const themeToggle = document.getElementById('themeToggle');
         const htmlElement = document.documentElement;
-        const themeIcon = themeToggle.querySelector('i');
 
         // Check for saved theme preference or default to dark mode
         const currentTheme = localStorage.getItem('theme') || 'dark';
         htmlElement.setAttribute('data-theme', currentTheme);
-        updateThemeIcon(currentTheme);
 
         themeToggle.addEventListener('click', () => {
             const currentTheme = htmlElement.getAttribute('data-theme');
@@ -1232,18 +1235,7 @@
             
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
         });
-
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            } else {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-            }
-        }
 
         // Mobile Menu Toggle
         const mobileMenu = document.getElementById('mobileMenu');
