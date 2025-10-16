@@ -760,8 +760,9 @@
                     </div>
                     <h3>Deep Learning Architecture</h3>
                     <p>
-                        Implemented hybrid LSTM-GRU neural networks that automatically learn temporal dependencies 
-                        in sensor data, eliminating the need for manual parameter tuning required by traditional methods.
+                        Implemented various neural network models - including Long Short-Term Memory (LSTM), Gated Recurrent 
+                        Unit (GRU), Convolutional Neural Networks, and Feedforward Neural Networks - that automatically learn temporal dependencies in sensor data, 
+                        eliminating the need for manual parameter tuning required by traditional methods.
                     </p>
                 </div>
                 <div class="feature-card">
@@ -828,7 +829,7 @@
                     <span class="step-number">1</span>
                     <h4>Data Collection & Preprocessing</h4>
                     <p>
-                        Collected raw IMU data (accelerometer, gyroscope, magnetometer) at 100Hz sampling rate. 
+                        Collected raw IMU data at 100Hz sampling rate. 
                         Applied noise filtering, calibration corrections, and normalization techniques to prepare 
                         data for neural network training.
                     </p>
@@ -837,16 +838,15 @@
                     <span class="step-number">2</span>
                     <h4>Feature Engineering</h4>
                     <p>
-                        Designed temporal features including rolling statistics, differential values, and quaternion 
-                        representations. Created sliding windows of sensor data to capture motion dynamics over time.
+                        Designed temporal features such as but not limited to rolling statistics and differential values. 
+                        Created sliding windows of sensor data to capture motion dynamics over time.
                     </p>
                 </div>
                 <div class="timeline-step">
                     <span class="step-number">3</span>
                     <h4>Model Architecture Design</h4>
                     <p>
-                        Developed hybrid LSTM-GRU architecture with bidirectional layers to capture both past and 
-                        future context. Implemented attention mechanisms to focus on critical time steps during orientation changes.
+                        Developed multiple neural network models from RNNs, CNNs, and FNNs hybrid models while implementing attention mechanisms to focus on critical time steps during orientation changes.
                     </p>
                 </div>
                 <div class="timeline-step">
@@ -855,7 +855,7 @@
                     <p>
                         Applied Bayesian optimization to systematically tune hyperparameters including learning rate, 
                         dropout rates, layer sizes, and sequence lengths. This probabilistic approach efficiently 
-                        explored the hyperparameter space, achieving optimal model configuration with 60% fewer 
+                        explored the hyperparameter space, achieving optimal model configuration with 80% fewer 
                         training iterations compared to grid search.
                     </p>
                 </div>
@@ -863,8 +863,8 @@
                     <span class="step-number">5</span>
                     <h4>Training & Optimization</h4>
                     <p>
-                        Trained models using Adam optimizer with custom loss function combining MSE and angular 
-                        distance metrics. Applied dropout, batch normalization, and early stopping to prevent overfitting.
+                        Trained models using Adam and RMSprop optimizers with a custom loss function.
+                        Applied dropout, batch normalization, and early stopping to prevent overfitting.
                     </p>
                 </div>
                 <div class="timeline-step">
@@ -1060,7 +1060,7 @@
                         padding: 3rem; border-radius: 12px; text-align: center; color: white;">
                 <h2 style="margin-bottom: 1rem; font-size: 2rem;">Interested in This Project?</h2>
                 <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
-                    I'm happy to discuss the technical details or collaborate on similar projects. Research publication coming soon.
+                    I'm happy to discuss the technical details or collaborate on similar projects. Happy to share codes for serious inquiries only. Research publication coming soon.
                 </p>
                 <div class="action-buttons" style="justify-content: center;">
                     <a href="../index.html#contact" class="btn btn-primary">
