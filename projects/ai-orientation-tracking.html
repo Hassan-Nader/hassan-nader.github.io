@@ -468,6 +468,52 @@
             line-height: 1.7;
         }
 
+        /* GIF Visualization Section */
+        .gif-visualization {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .gif-container {
+            position: relative;
+            display: inline-block;
+            max-width: 100%;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 40px rgba(37, 99, 235, 0.3);
+            animation: fadeInScale 6s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            15% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .gif-caption {
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
         /* Results Section */
         .results-grid {
             display: grid;
@@ -838,6 +884,21 @@
                         Deployed on embedded systems with real-time streaming capabilities for practical applications.
                     </p>
                 </div>
+            </div>
+        </section>
+
+        <!-- Model Performance Visualization (GIF Section) -->
+        <section class="content-section">
+            <div class="gif-visualization">
+                <div class="gif-container">
+                    <img src="assets/images/orientation-tracking.gif" 
+                         alt="AI Model Orientation Tracking Visualization - Real-time predictions vs ground truth" 
+                         loading="lazy">
+                </div>
+                <p class="gif-caption">
+                    Real-time AI model predictions compared with ground truth orientation data over 300 time steps. 
+                    The visualization demonstrates the model's ability to accurately track complex 3D rotations with minimal error.
+                </p>
             </div>
         </section>
 
