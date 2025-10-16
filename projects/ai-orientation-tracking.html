@@ -729,20 +729,24 @@
                 <div class="overview-text">
                     <p>
                         This project presents a <span class="highlight">novel approach to 3D orientation tracking</span> by 
-                        replacing traditional Kalman filters with advanced deep learning architectures. Using LSTM and GRU 
-                        neural networks, the system processes raw IMU (Inertial Measurement Unit) sensor data to achieve 
-                        unprecedented accuracy in real-time orientation estimation.
+                        replacing traditional Kalman filters with advanced deep learning architectures. The system eliminates 
+                        gyroscope dependency by processing raw accelerometer and magnetometer data through LSTM and GRU 
+                        neural networks, achieving unprecedented accuracy in real-time orientation estimation through 
+                        sophisticated data science and engineering techniques.
                     </p>
                     <p>
                         Traditional Kalman filters, while widely used in robotics and aerospace, rely on linear assumptions 
                         and require careful manual tuning. Our AI-based approach <span class="highlight">learns complex 
-                        non-linear patterns</span> directly from sensor data, adapting to various motion conditions and 
-                        sensor characteristics without manual intervention.
+                        non-linear patterns</span> directly from sensor data through extensive data preprocessing, feature 
+                        engineering, and advanced analytics. The system adapts to various motion conditions and sensor 
+                        characteristics without manual intervention, representing a paradigm shift in sensor fusion methodology.
                     </p>
                     <p>
-                        The system successfully processes over <span class="highlight">300,000 IMU samples</span> with 
-                        remarkable precision, achieving a mean prediction error of just 0.2° while maintaining real-time 
-                        performance with inference times under 100ms.
+                        Through rigorous data collection, cleaning, and preprocessing of over <span class="highlight">300,000 
+                        IMU samples</span>, the system achieved remarkable precision with a mean prediction error of just 0.2° 
+                        while maintaining real-time performance. The comprehensive data pipeline includes noise filtering, 
+                        signal processing, electromagnetic interference mitigation, and synchronized dual-sensor data fusion, 
+                        demonstrating the critical role of data engineering in machine learning success.
                     </p>
                 </div>
                 <div class="stats-card">
@@ -774,13 +778,14 @@
             </h2>
             <div class="tech-grid">
                 <div class="tech-card">
-                    <h4><i class="fas fa-brain"></i> Deep Learning</h4>
+                    <h4><i class="fas fa-brain"></i> ML/DL Frameworks</h4>
                     <ul>
                         <li>TensorFlow 2.x</li>
                         <li>Keras API</li>
                         <li>LSTM Networks</li>
                         <li>GRU Networks</li>
-                        <li>Bidirectional RNNs</li>
+                        <li>CNN Architectures</li>
+                        <li>Feedforward Neural Networks</li>
                     </ul>
                 </div>
                 <div class="tech-card">
@@ -797,7 +802,7 @@
                     <h4><i class="fas fa-microchip"></i> Hardware</h4>
                     <ul>
                         <li>IMU Sensors (MPU-9250)</li>
-                        <li>Arduino Integration</li>
+                        <li>ESP32 Microcontroller</li>
                         <li>Serial Communication</li>
                         <li>Real-time Data Streaming</li>
                     </ul>
@@ -806,7 +811,8 @@
                     <h4><i class="fas fa-chart-line"></i> Data Processing</h4>
                     <ul>
                         <li>Signal Processing</li>
-                        <li>Quaternion Math</li>
+                        <li>Data Cleaning & Preprocessing</li>
+                        <li>Quaternion Mathematics</li>
                         <li>Sensor Fusion</li>
                         <li>Noise Filtering</li>
                         <li>Feature Engineering</li>
@@ -1265,14 +1271,12 @@ history = model.fit(
                         padding: 3rem; border-radius: 12px; text-align: center; color: white;">
                 <h2 style="margin-bottom: 1rem; font-size: 2rem;">Interested in This Project?</h2>
                 <p style="margin-bottom: 2rem; font-size: 1.1rem; opacity: 0.9;">
-                    I'm happy to discuss the technical details, share code, or collaborate on similar projects.
+                    I'm happy to discuss the technical details, methodology, and implementation. The complete source code 
+                    is available upon request for serious inquiries.
                 </p>
                 <div class="action-buttons" style="justify-content: center;">
                     <a href="../index.html#contact" class="btn btn-primary">
                         <i class="fas fa-envelope"></i> Get in Touch
-                    </a>
-                    <a href="#" class="btn btn-secondary">
-                        <i class="fab fa-github"></i> View Code
                     </a>
                 </div>
             </div>
@@ -1298,23 +1302,6 @@ history = model.fit(
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
         });
-
-        // Copy Code Function
-        function copyCode() {
-            const codeBlock = document.getElementById('codeBlock');
-            const textArea = document.createElement('textarea');
-            textArea.value = codeBlock.textContent;
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            
-            const copyBtn = document.querySelector('.copy-btn');
-            copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-            setTimeout(() => {
-                copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy Code';
-            }, 2000);
-        }
 
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
