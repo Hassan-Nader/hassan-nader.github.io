@@ -434,6 +434,9 @@
             border: 1px solid var(--border-color);
             transition: all 0.3s;
             cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover {
@@ -451,10 +454,34 @@
             justify-content: center;
             font-size: 3rem;
             color: white;
+            flex-shrink: 0;
         }
 
         .project-content {
             padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .research-badge {
+            position: absolute;
+            top: 20px;
+            right: -35px;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 8px 40px;
+            transform: rotate(45deg);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 0.5px;
+            z-index: 10;
+        }
+
+        .research-badge i {
+            margin-right: 5px;
         }
 
         .project-content h3 {
@@ -475,6 +502,7 @@
             border-radius: 8px;
             margin-bottom: 1.5rem;
             border-left: 3px solid var(--success-color);
+            min-height: 170px;
         }
 
         .project-metrics h4 {
@@ -523,6 +551,7 @@
             gap: 0.5rem;
             font-weight: 600;
             transition: gap 0.3s;
+            margin-top: auto;
         }
 
         .project-link:hover {
@@ -867,7 +896,7 @@
                 <img src="assets/images/profile-photo.png" alt="Hassan Nader">
             </div>
             <h1>Hassan Nader</h1>
-            <p class="subtitle">Data Scientist | My Passion is Transforming Data into Insights</p>
+            <p class="subtitle">Data Scientist | Transforming Data into Insights</p>
             <div class="cta-buttons">
                 <a href="assets/Hassan_Nader_Resume.pdf" class="btn btn-primary" download="Hassan_Nader_Resume.pdf">
                     <i class="fas fa-download"></i> Download Resume
@@ -1034,19 +1063,23 @@
                             <span class="tech-tag">API Integration</span>
                         </div>
                         <a href="projects/nba-predictor.html" class="project-link">
-                             See More Details <i class="fas fa-arrow-right"></i>-->
+                            See More Details <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
 
                 <div class="project-card">
+                    <div class="research-badge">
+                        <i class="fas fa-file-alt"></i>
+                        Research Paper Coming Soon
+                    </div>
                     <div class="project-image">
                         <i class="fas fa-tools"></i>
                     </div>
                     <div class="project-content">
                         <h3>Probabilistic RUL Prediction for Turbofan Engines</h3>
                         <p>
-                            Developed a Bayesian deep learning model for Remaining Useful Life (RUL) prediction using NASA’s C-MAPSS data, quantifying uncertainty to improve proactive propulsion maintenance.
+                            Developed a Bayesian deep learning model for Remaining Useful Life (RUL) prediction using NASA's C-MAPSS data, quantifying uncertainty to improve proactive propulsion maintenance.
                         </p>
                         <div class="project-metrics">
                             <h4>Key Achievements</h4>
@@ -1060,14 +1093,11 @@
                         <div class="tech-tags">
                             <span class="tech-tag">PyTorch</span>
                             <span class="tech-tag">SQL</span>
-                            <span class="tech-tag">	Python</span>
+                            <span class="tech-tag">Python</span>
                             <span class="tech-tag">CNN-LSTM</span>
                             <span class="tech-tag">Time-Series Analysis</span>
                             <span class="tech-tag">Bayesian Deep Learning</span>
                         </div>
-                        <a href="projects/predictive-maintenance.html" class="project-link">
-                             See More Details <i class="fas fa-arrow-right"></i>-->
-                        </a>
                     </div>
                 </div>
             </div>
@@ -1184,12 +1214,12 @@
                     <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank" title="LinkedIn">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="mailto:hassanmohamednader@gmail.com" class="contact-link" title="Email">
+                    <a href="mailto:hnadercareer@gmail.com" class="contact-link" title="Email">
                         <i class="fas fa-envelope"></i>
                     </a>
                 </div>
-                <a href="mailto:hassanmohamednader@gmail.com" class="email-link">
-                    <i class="fas fa-paper-plane"></i> hassanmohamednader@gmail.com
+                <a href="mailto:hnadercareer@gmail.com" class="email-link">
+                    <i class="fas fa-paper-plane"></i> hnadercareer@gmail.com
                 </a>
             </div>
         </div>
