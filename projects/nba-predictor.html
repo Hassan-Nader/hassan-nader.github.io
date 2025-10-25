@@ -921,6 +921,41 @@
         const teamLogos = {};
         let logosLoaded = 0;
         const totalLogos = 30;
+        let hoveredTeam = null;
+        
+        // Team stats data (2023-24 season)
+        const teamStats = {
+            'CLE': {name: 'Cleveland Cavaliers', w: 64, l: 18, pct: 0.780, ps: 121.9, pa: 112.4, diff: 8.8},
+            'BOS': {name: 'Boston Celtics', w: 61, l: 21, pct: 0.744, ps: 116.3, pa: 107.2, diff: 8.2},
+            'NYK': {name: 'New York Knicks', w: 51, l: 31, pct: 0.622, ps: 115.8, pa: 111.7, diff: 3.5},
+            'IND': {name: 'Indiana Pacers', w: 50, l: 32, pct: 0.610, ps: 117.4, pa: 115.1, diff: 1.6},
+            'MIL': {name: 'Milwaukee Bucks', w: 48, l: 34, pct: 0.585, ps: 115.5, pa: 113.0, diff: 2.1},
+            'DET': {name: 'Detroit Pistons', w: 44, l: 38, pct: 0.537, ps: 115.5, pa: 113.6, diff: 1.7},
+            'ORL': {name: 'Orlando Magic', w: 41, l: 41, pct: 0.500, ps: 105.4, pa: 105.5, diff: -0.7},
+            'ATL': {name: 'Atlanta Hawks', w: 40, l: 42, pct: 0.488, ps: 118.2, pa: 119.3, diff: -1.4},
+            'CHI': {name: 'Chicago Bulls', w: 39, l: 43, pct: 0.476, ps: 117.8, pa: 119.4, diff: -1.8},
+            'MIA': {name: 'Miami Heat', w: 37, l: 45, pct: 0.451, ps: 110.6, pa: 110.0, diff: 0.1},
+            'TOR': {name: 'Toronto Raptors', w: 30, l: 52, pct: 0.366, ps: 110.9, pa: 115.2, diff: -4.4},
+            'BKN': {name: 'Brooklyn Nets', w: 26, l: 56, pct: 0.317, ps: 105.1, pa: 112.2, diff: -6.9},
+            'PHI': {name: 'Philadelphia 76ers', w: 24, l: 58, pct: 0.293, ps: 109.6, pa: 115.8, diff: -6.2},
+            'CHA': {name: 'Charlotte Hornets', w: 19, l: 63, pct: 0.232, ps: 105.1, pa: 114.2, diff: -9.1},
+            'WAS': {name: 'Washington Wizards', w: 18, l: 64, pct: 0.220, ps: 108.0, pa: 120.4, diff: -12.1},
+            'OKC': {name: 'Oklahoma City Thunder', w: 68, l: 14, pct: 0.829, ps: 120.5, pa: 107.6, diff: 12.7},
+            'HOU': {name: 'Houston Rockets', w: 52, l: 30, pct: 0.634, ps: 114.3, pa: 109.8, diff: 4.9},
+            'LAL': {name: 'Los Angeles Lakers', w: 50, l: 32, pct: 0.610, ps: 113.4, pa: 112.2, diff: 1.4},
+            'DEN': {name: 'Denver Nuggets', w: 50, l: 32, pct: 0.610, ps: 120.8, pa: 116.9, diff: 3.9},
+            'LAC': {name: 'Los Angeles Clippers', w: 50, l: 32, pct: 0.610, ps: 112.9, pa: 108.2, diff: 4.8},
+            'MIN': {name: 'Minnesota Timberwolves', w: 49, l: 33, pct: 0.598, ps: 114.3, pa: 109.3, diff: 5.1},
+            'GSW': {name: 'Golden State Warriors', w: 48, l: 34, pct: 0.585, ps: 113.8, pa: 110.5, diff: 3.5},
+            'MEM': {name: 'Memphis Grizzlies', w: 48, l: 34, pct: 0.585, ps: 121.7, pa: 116.9, diff: 4.7},
+            'SAC': {name: 'Sacramento Kings', w: 40, l: 42, pct: 0.488, ps: 115.7, pa: 115.3, diff: 0.5},
+            'DAL': {name: 'Dallas Mavericks', w: 39, l: 43, pct: 0.476, ps: 114.2, pa: 115.4, diff: -0.7},
+            'PHX': {name: 'Phoenix Suns', w: 36, l: 46, pct: 0.439, ps: 113.6, pa: 116.6, diff: -2.5},
+            'POR': {name: 'Portland Trail Blazers', w: 36, l: 46, pct: 0.439, ps: 110.9, pa: 113.9, diff: -2.6},
+            'SAS': {name: 'San Antonio Spurs', w: 34, l: 48, pct: 0.415, ps: 113.9, pa: 116.7, diff: -2.4},
+            'NOP': {name: 'New Orleans Pelicans', w: 21, l: 61, pct: 0.256, ps: 109.8, pa: 119.3, diff: -8.5},
+            'UTA': {name: 'Utah Jazz', w: 17, l: 65, pct: 0.207, ps: 111.9, pa: 121.2, diff: -8.5}
+        };
         
         function drawTeamGrid() {
             const colors = getChartColors();
@@ -956,12 +991,12 @@
             ];
             
             const teamWins = {
-                'POR': 33, 'LAC': 51, 'GSW': 58, 'MEM': 27, 'CLE': 48,
-                'WAS': 15, 'CHI': 39, 'IND': 47, 'MIL': 49, 'CHA': 21,
-                'OKC': 40, 'DEN': 57, 'MIN': 56, 'DAL': 50, 'TOR': 25,
-                'DET': 14, 'NYK': 50, 'BKN': 32, 'PHI': 47, 'BOS': 64,
-                'PHX': 45, 'LAL': 47, 'SAC': 48, 'UTA': 37, 'SAS': 22,
-                'HOU': 41, 'NOP': 49, 'ATL': 36, 'ORL': 47, 'MIA': 46
+                'POR': 36, 'LAC': 50, 'GSW': 48, 'MEM': 48, 'CLE': 64,
+                'WAS': 18, 'CHI': 39, 'IND': 50, 'MIL': 48, 'CHA': 19,
+                'OKC': 68, 'DEN': 50, 'MIN': 49, 'DAL': 39, 'TOR': 30,
+                'DET': 44, 'NYK': 51, 'BKN': 26, 'PHI': 24, 'BOS': 61,
+                'PHX': 36, 'LAL': 50, 'SAC': 40, 'UTA': 17, 'SAS': 34,
+                'HOU': 52, 'NOP': 21, 'ATL': 40, 'ORL': 41, 'MIA': 37
             };
             
             // Draw teams
