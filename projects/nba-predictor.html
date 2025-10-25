@@ -560,7 +560,7 @@
     <section class="nba-map-section">
         <div class="container">
             <div class="map-container">
-                <h2 class="map-title">NBA Team Geographic Performance Distribution</h2>
+                <h2 class="map-title">NBA Team Geographic</h2>
                 <canvas id="usaMap"></canvas>
             </div>
         </div>
@@ -1188,7 +1188,12 @@
         
         // Initial draw with fallback
         setTimeout(() => drawTeamGrid(), 100);
-        window.addEventListener('resize', drawTeamGrid);
+        
+        // Redraw on window resize
+        window.addEventListener('resize', () => {
+            hoveredTeam = null; // Reset hover on resize
+            drawTeamGrid();
+        });
 
         // Conference Distribution Chart
         const conferenceCtx = document.getElementById('conferenceChart').getContext('2d');
