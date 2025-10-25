@@ -936,55 +936,52 @@
             mapCtx.fillStyle = bgGradient;
             mapCtx.fillRect(0, 0, width, height);
             
-            // NBA Teams organized in clean grid (no overlap, like your reference image)
+            // Calculate responsive spacing
+            const cols = 10;
+            const rows = 3;
+            const padding = 100;
+            const availableWidth = width - (padding * 2);
+            const availableHeight = 650;
+            const colSpacing = availableWidth / cols;
+            const rowSpacing = availableHeight / rows;
+            
+            // NBA Teams organized in clean grid (maintaining order)
             const teams = [
                 // Row 1 (Top) - 10 teams
-                {name: 'POR', x: 130, y: 150, wins: 33},
-                {name: 'LAC', x: 260, y: 150, wins: 51},
-                {name: 'GSW', x: 390, y: 150, wins: 58},
-                {name: 'MEM', x: 520, y: 150, wins: 27},
-                {name: 'CLE', x: 650, y: 150, wins: 48},
-                {name: 'WAS', x: 780, y: 150, wins: 15},
-                {name: 'CHI', x: 910, y: 150, wins: 39},
-                {name: 'IND', x: 1040, y: 150, wins: 47},
-                {name: 'MIL', x: 1170, y: 150, wins: 49},
-                {name: 'CHA', x: 1300, y: 150, wins: 21},
-                
+                'POR', 'LAC', 'GSW', 'MEM', 'CLE', 'WAS', 'CHI', 'IND', 'MIL', 'CHA',
                 // Row 2 - 10 teams
-                {name: 'OKC', x: 130, y: 310, wins: 40},
-                {name: 'DEN', x: 260, y: 310, wins: 57},
-                {name: 'MIN', x: 390, y: 310, wins: 56},
-                {name: 'DAL', x: 520, y: 310, wins: 50},
-                {name: 'TOR', x: 650, y: 310, wins: 25},
-                {name: 'DET', x: 780, y: 310, wins: 14},
-                {name: 'NYK', x: 910, y: 310, wins: 50},
-                {name: 'BKN', x: 1040, y: 310, wins: 32},
-                {name: 'PHI', x: 1170, y: 310, wins: 47},
-                {name: 'BOS', x: 1300, y: 310, wins: 64},
-                
+                'OKC', 'DEN', 'MIN', 'DAL', 'TOR', 'DET', 'NYK', 'BKN', 'PHI', 'BOS',
                 // Row 3 (Bottom) - 10 teams
-                {name: 'PHX', x: 130, y: 470, wins: 45},
-                {name: 'LAL', x: 260, y: 470, wins: 47},
-                {name: 'SAC', x: 390, y: 470, wins: 48},
-                {name: 'UTA', x: 520, y: 470, wins: 37},
-                {name: 'SAS', x: 650, y: 470, wins: 22},
-                {name: 'HOU', x: 780, y: 470, wins: 41},
-                {name: 'NOP', x: 910, y: 470, wins: 49},
-                {name: 'ATL', x: 1040, y: 470, wins: 36},
-                {name: 'ORL', x: 1170, y: 470, wins: 47},
-                {name: 'MIA', x: 1300, y: 470, wins: 46}
+                'PHX', 'LAL', 'SAC', 'UTA', 'SAS', 'HOU', 'NOP', 'ATL', 'ORL', 'MIA'
             ];
             
+            const teamWins = {
+                'POR': 33, 'LAC': 51, 'GSW': 58, 'MEM': 27, 'CLE': 48,
+                'WAS': 15, 'CHI': 39, 'IND': 47, 'MIL': 49, 'CHA': 21,
+                'OKC': 40, 'DEN': 57, 'MIN': 56, 'DAL': 50, 'TOR': 25,
+                'DET': 14, 'NYK': 50, 'BKN': 32, 'PHI': 47, 'BOS': 64,
+                'PHX': 45, 'LAL': 47, 'SAC': 48, 'UTA': 37, 'SAS': 22,
+                'HOU': 41, 'NOP': 49, 'ATL': 36, 'ORL': 47, 'MIA': 46
+            };
+            
             // Draw teams
-            teams.forEach(team => {
+            teams.forEach((teamName, index) => {
+                const row = Math.floor(index / cols);
+                const col = index % cols;
+                
+                // Center position for each team
+                const x = padding + (col * colSpacing) + (colSpacing / 2);
+                const y = 120 + (row * rowSpacing) + (rowSpacing / 2);
+                
+                const wins = teamWins[teamName];
                 const baseSize = 45;
-                const size = baseSize + (team.wins / 64) * 15;
+                const size = baseSize + (wins / 64) * 15;
                 
                 // Determine color based on wins
                 let tierColor;
-                if (team.wins >= 55) tierColor = colors.nbaBlue;
-                else if (team.wins >= 45) tierColor = colors.success;
-                else if (team.wins >= 35) tierColor = colors.warning;
+                if (wins >= 55) tierColor = colors.nbaBlue;
+                else if (wins >= 45) tierColor = colors.success;
+                else if (wins >= 35) tierColor = colors.warning;
                 else tierColor = colors.danger;
                 
                 // Outer glow circle
@@ -992,14 +989,14 @@
                 mapCtx.shadowBlur = 15;
                 mapCtx.fillStyle = tierColor + '25';
                 mapCtx.beginPath();
-                mapCtx.arc(team.x, team.y, size + 5, 0, Math.PI * 2);
+                mapCtx.arc(x, y, size + 5, 0, Math.PI * 2);
                 mapCtx.fill();
                 mapCtx.shadowBlur = 0;
                 
                 // Main circle background
                 mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? '#1e293b' : '#ffffff';
                 mapCtx.beginPath();
-                mapCtx.arc(team.x, team.y, size, 0, Math.PI * 2);
+                mapCtx.arc(x, y, size, 0, Math.PI * 2);
                 mapCtx.fill();
                 
                 // Border
@@ -1008,17 +1005,17 @@
                 mapCtx.stroke();
                 
                 // Check if logo is loaded
-                if (teamLogos[team.name]) {
+                if (teamLogos[teamName]) {
                     mapCtx.save();
                     mapCtx.beginPath();
-                    mapCtx.arc(team.x, team.y, size - 3, 0, Math.PI * 2);
+                    mapCtx.arc(x, y, size - 3, 0, Math.PI * 2);
                     mapCtx.clip();
                     
                     const logoSize = (size - 3) * 2;
                     mapCtx.drawImage(
-                        teamLogos[team.name],
-                        team.x - logoSize/2,
-                        team.y - logoSize/2,
+                        teamLogos[teamName],
+                        x - logoSize/2,
+                        y - logoSize/2,
                         logoSize,
                         logoSize
                     );
@@ -1029,7 +1026,7 @@
                     mapCtx.font = `bold ${size * 0.45}px Inter`;
                     mapCtx.textAlign = 'center';
                     mapCtx.textBaseline = 'middle';
-                    mapCtx.fillText(team.name, team.x, team.y);
+                    mapCtx.fillText(teamName, x, y);
                 }
                 
                 // Team name above
@@ -1039,31 +1036,34 @@
                 mapCtx.textBaseline = 'bottom';
                 mapCtx.shadowColor = colors.dark_bg === '#0f172a' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)';
                 mapCtx.shadowBlur = 4;
-                mapCtx.fillText(team.name, team.x, team.y - size - 8);
+                mapCtx.fillText(teamName, x, y - size - 8);
                 
                 // Win count below
                 mapCtx.font = 'bold 14px Inter';
                 mapCtx.textBaseline = 'top';
-                mapCtx.fillText(team.wins + 'W', team.x, team.y + size + 8);
+                mapCtx.fillText(wins + 'W', x, y + size + 8);
                 mapCtx.shadowBlur = 0;
             });
             
-            // Enhanced Legend
-            const legendX = 100;
-            const legendY = 750;
+            // Enhanced Legend - Centered at bottom
+            const legendWidth = 450;
+            const legendHeight = 170;
+            const legendX = (width - legendWidth) / 2;
+            const legendY = 770;
             
             // Legend background
-            mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? 'rgba(30, 41, 59, 0.9)' : 'rgba(248, 250, 252, 0.9)';
-            mapCtx.fillRect(legendX - 30, legendY - 35, 500, 180);
-            mapCtx.strokeStyle = colors.border;
+            mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? 'rgba(30, 41, 59, 0.95)' : 'rgba(248, 250, 252, 0.95)';
+            mapCtx.fillRect(legendX, legendY, legendWidth, legendHeight);
+            mapCtx.strokeStyle = colors.primary;
             mapCtx.lineWidth = 2;
-            mapCtx.strokeRect(legendX - 30, legendY - 35, 500, 180);
+            mapCtx.strokeRect(legendX, legendY, legendWidth, legendHeight);
             
+            // Legend title
             mapCtx.font = 'bold 20px Inter';
             mapCtx.fillStyle = colors.text;
-            mapCtx.textAlign = 'left';
+            mapCtx.textAlign = 'center';
             mapCtx.shadowBlur = 0;
-            mapCtx.fillText('Performance Tiers:', legendX, legendY);
+            mapCtx.fillText('Performance Tiers', legendX + legendWidth / 2, legendY + 30);
             
             const tiers = [
                 {label: 'Elite (55+ wins)', color: colors.nbaBlue},
@@ -1072,11 +1072,17 @@
                 {label: 'Rebuilding (<35 wins)', color: colors.danger}
             ];
             
+            const tierStartY = legendY + 60;
+            const tierSpacing = 30;
+            
             tiers.forEach((tier, i) => {
+                const tierY = tierStartY + i * tierSpacing;
+                const circleX = legendX + 40;
+                
                 // Circle
                 mapCtx.fillStyle = tier.color + '40';
                 mapCtx.beginPath();
-                mapCtx.arc(legendX + 30, legendY + 40 + i * 32, 14, 0, Math.PI * 2);
+                mapCtx.arc(circleX, tierY, 12, 0, Math.PI * 2);
                 mapCtx.fill();
                 
                 mapCtx.strokeStyle = tier.color;
@@ -1086,7 +1092,9 @@
                 // Label
                 mapCtx.fillStyle = colors.text;
                 mapCtx.font = '16px Inter';
-                mapCtx.fillText(tier.label, legendX + 60, legendY + 46 + i * 32);
+                mapCtx.textAlign = 'left';
+                mapCtx.textBaseline = 'middle';
+                mapCtx.fillText(tier.label, circleX + 25, tierY);
             });
         }
         
