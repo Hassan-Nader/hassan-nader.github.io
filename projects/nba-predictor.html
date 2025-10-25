@@ -282,9 +282,190 @@
 
         #usaMap {
             width: 100%;
-            height: 500px;
+            height: 600px;
             background: linear-gradient(135deg, rgba(29, 66, 138, 0.05), rgba(200, 16, 46, 0.05));
             border-radius: 8px;
+            position: relative;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 1rem;
+            padding: 2rem;
+            max-width: 100%;
+        }
+
+        .team-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .team-item:hover {
+            transform: translateY(-5px);
+            z-index: 10;
+        }
+
+        .team-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1rem;
+            color: white;
+            border: 3px solid;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s;
+        }
+
+        .team-item:hover .team-circle {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            transform: scale(1.1);
+        }
+
+        .team-circle.elite {
+            background: linear-gradient(135deg, #1d428a, #2563eb);
+            border-color: #1d428a;
+        }
+
+        .team-circle.playoff {
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-color: #059669;
+        }
+
+        .team-circle.average {
+            background: linear-gradient(135deg, #d97706, #f59e0b);
+            border-color: #d97706;
+        }
+
+        .team-circle.rebuilding {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            border-color: #dc2626;
+        }
+
+        .team-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        .team-wins {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .team-tooltip {
+            position: absolute;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-color);
+            border-radius: 8px;
+            padding: 1rem;
+            min-width: 250px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 0.5rem;
+        }
+
+        .team-item:hover .team-tooltip {
+            opacity: 1;
+        }
+
+        .tooltip-header {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .tooltip-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.25rem 0;
+            font-size: 0.85rem;
+        }
+
+        .tooltip-stat-label {
+            color: var(--text-secondary);
+        }
+
+        .tooltip-stat-value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .tooltip-stat-value.positive {
+            color: var(--success-color);
+        }
+
+        .tooltip-stat-value.negative {
+            color: #ef4444;
+        }
+
+        .legend-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-top: 2rem;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .legend-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid;
+            flex-shrink: 0;
+        }
+
+        .legend-text {
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        @media (max-width: 1200px) {
+            .team-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.75rem;
+            }
+            
+            .team-circle {
+                width: 60px;
+                height: 60px;
+                font-size: 0.85rem;
+            }
         }
 
         /* Content Sections */
@@ -560,8 +741,27 @@
     <section class="nba-map-section">
         <div class="container">
             <div class="map-container">
-                <h2 class="map-title">NBA Team Geographic</h2>
-                <canvas id="usaMap"></canvas>
+                <h2 class="map-title">NBA Team Geographic Performance Distribution</h2>
+                <div id="usaMap" class="team-grid"></div>
+                
+                <div class="legend-grid">
+                    <div class="legend-item">
+                        <div class="legend-circle elite"></div>
+                        <span class="legend-text">Elite (55+ wins)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-circle playoff"></div>
+                        <span class="legend-text">Playoff (45-54 wins)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-circle average"></div>
+                        <span class="legend-text">Average (35-44 wins)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-circle rebuilding"></div>
+                        <span class="legend-text">Rebuilding (<35 wins)</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -913,15 +1113,8 @@
 
         let charts = {};
 
-        // NBA Team Grid Display
-        const mapCanvas = document.getElementById('usaMap');
-        const mapCtx = mapCanvas.getContext('2d');
-        
-        // Team logos
-        const teamLogos = {};
-        let logosLoaded = 0;
-        const totalLogos = 30;
-        let hoveredTeam = null;
+        // NBA Team Grid Display - HTML Based (Hoverable like charts)
+        const teamGridContainer = document.getElementById('usaMap');
         
         // Team stats data (2023-24 season)
         const teamStats = {
@@ -957,134 +1150,64 @@
             'UTA': {name: 'Utah Jazz', w: 17, l: 65, pct: 0.207, ps: 111.9, pa: 121.2, diff: -8.5}
         };
         
-        function drawTeamGrid() {
-            const colors = getChartColors();
-            const width = mapCanvas.width = mapCanvas.offsetWidth * 2;
-            const height = mapCanvas.height = 1000;
+        // Teams in order
+        const teams = [
+            'POR', 'LAC', 'GSW', 'MEM', 'CLE', 'WAS', 'CHI', 'IND', 'MIL', 'CHA',
+            'OKC', 'DEN', 'MIN', 'DAL', 'TOR', 'DET', 'NYK', 'BKN', 'PHI', 'BOS',
+            'PHX', 'LAL', 'SAC', 'UTA', 'SAS', 'HOU', 'NOP', 'ATL', 'ORL', 'MIA'
+        ];
+        
+        function getTierClass(wins) {
+            if (wins >= 55) return 'elite';
+            if (wins >= 45) return 'playoff';
+            if (wins >= 35) return 'average';
+            return 'rebuilding';
+        }
+        
+        function createTeamGrid() {
+            teamGridContainer.innerHTML = '';
             
-            mapCtx.clearRect(0, 0, width, height);
-            
-            // Background with gradient
-            const bgGradient = mapCtx.createLinearGradient(0, 0, 0, height);
-            bgGradient.addColorStop(0, colors.grid + '10');
-            bgGradient.addColorStop(1, colors.grid + '05');
-            mapCtx.fillStyle = bgGradient;
-            mapCtx.fillRect(0, 0, width, height);
-            
-            // Calculate responsive spacing
-            const cols = 10;
-            const rows = 3;
-            const padding = 100;
-            const availableWidth = width - (padding * 2);
-            const availableHeight = 650;
-            const colSpacing = availableWidth / cols;
-            const rowSpacing = availableHeight / rows;
-            
-            // NBA Teams organized in clean grid (maintaining order)
-            const teams = [
-                // Row 1 (Top) - 10 teams
-                'POR', 'LAC', 'GSW', 'MEM', 'CLE', 'WAS', 'CHI', 'IND', 'MIL', 'CHA',
-                // Row 2 - 10 teams
-                'OKC', 'DEN', 'MIN', 'DAL', 'TOR', 'DET', 'NYK', 'BKN', 'PHI', 'BOS',
-                // Row 3 (Bottom) - 10 teams
-                'PHX', 'LAL', 'SAC', 'UTA', 'SAS', 'HOU', 'NOP', 'ATL', 'ORL', 'MIA'
-            ];
-            
-            const teamWins = {
-                'POR': 36, 'LAC': 50, 'GSW': 48, 'MEM': 48, 'CLE': 64,
-                'WAS': 18, 'CHI': 39, 'IND': 50, 'MIL': 48, 'CHA': 19,
-                'OKC': 68, 'DEN': 50, 'MIN': 49, 'DAL': 39, 'TOR': 30,
-                'DET': 44, 'NYK': 51, 'BKN': 26, 'PHI': 24, 'BOS': 61,
-                'PHX': 36, 'LAL': 50, 'SAC': 40, 'UTA': 17, 'SAS': 34,
-                'HOU': 52, 'NOP': 21, 'ATL': 40, 'ORL': 41, 'MIA': 37
-            };
-            
-            // Draw teams
-            teams.forEach((teamName, index) => {
-                const row = Math.floor(index / cols);
-                const col = index % cols;
+            teams.forEach(teamCode => {
+                const stats = teamStats[teamCode];
+                const tierClass = getTierClass(stats.w);
                 
-                // Center position for each team
-                const x = padding + (col * colSpacing) + (colSpacing / 2);
-                const y = 120 + (row * rowSpacing) + (rowSpacing / 2);
+                const teamItem = document.createElement('div');
+                teamItem.className = 'team-item';
                 
-                const wins = teamWins[teamName];
-                const baseSize = 45;
-                const size = baseSize + (wins / 64) * 15;
+                teamItem.innerHTML = `
+                    <div class="team-label">${teamCode}</div>
+                    <div class="team-circle ${tierClass}">
+                        ${teamCode}
+                    </div>
+                    <div class="team-wins">${stats.w}W</div>
+                    <div class="team-tooltip">
+                        <div class="tooltip-header">${stats.name}</div>
+                        <div class="tooltip-stat">
+                            <span class="tooltip-stat-label">Record:</span>
+                            <span class="tooltip-stat-value">${stats.w}-${stats.l} (${(stats.pct * 100).toFixed(1)}%)</span>
+                        </div>
+                        <div class="tooltip-stat">
+                            <span class="tooltip-stat-label">Points/Game:</span>
+                            <span class="tooltip-stat-value">${stats.ps.toFixed(1)}</span>
+                        </div>
+                        <div class="tooltip-stat">
+                            <span class="tooltip-stat-label">Opp Points/Game:</span>
+                            <span class="tooltip-stat-value">${stats.pa.toFixed(1)}</span>
+                        </div>
+                        <div class="tooltip-stat">
+                            <span class="tooltip-stat-label">Point Diff:</span>
+                            <span class="tooltip-stat-value ${stats.diff > 0 ? 'positive' : 'negative'}">
+                                ${stats.diff > 0 ? '+' : ''}${stats.diff.toFixed(1)}
+                            </span>
+                        </div>
+                    </div>
+                `;
                 
-                // Determine color based on wins
-                let tierColor;
-                if (wins >= 55) tierColor = colors.nbaBlue;
-                else if (wins >= 45) tierColor = colors.success;
-                else if (wins >= 35) tierColor = colors.warning;
-                else tierColor = colors.danger;
-                
-                // Outer glow circle
-                mapCtx.shadowColor = tierColor + '60';
-                mapCtx.shadowBlur = 15;
-                mapCtx.fillStyle = tierColor + '25';
-                mapCtx.beginPath();
-                mapCtx.arc(x, y, size + 5, 0, Math.PI * 2);
-                mapCtx.fill();
-                mapCtx.shadowBlur = 0;
-                
-                // Main circle background
-                mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? '#1e293b' : '#ffffff';
-                mapCtx.beginPath();
-                mapCtx.arc(x, y, size, 0, Math.PI * 2);
-                mapCtx.fill();
-                
-                // Border
-                mapCtx.strokeStyle = tierColor;
-                mapCtx.lineWidth = 3;
-                mapCtx.stroke();
-                
-                // Check if logo is loaded
-                if (teamLogos[teamName]) {
-                    mapCtx.save();
-                    mapCtx.beginPath();
-                    mapCtx.arc(x, y, size - 3, 0, Math.PI * 2);
-                    mapCtx.clip();
-                    
-                    const logoSize = (size - 3) * 2;
-                    mapCtx.drawImage(
-                        teamLogos[teamName],
-                        x - logoSize/2,
-                        y - logoSize/2,
-                        logoSize,
-                        logoSize
-                    );
-                    mapCtx.restore();
-                } else {
-                    // Fallback: team abbreviation
-                    mapCtx.fillStyle = tierColor;
-                    mapCtx.font = `bold ${size * 0.45}px Inter`;
-                    mapCtx.textAlign = 'center';
-                    mapCtx.textBaseline = 'middle';
-                    mapCtx.fillText(teamName, x, y);
-                }
-                
-                // Team name above
-                mapCtx.fillStyle = colors.text;
-                mapCtx.font = 'bold 15px Inter';
-                mapCtx.textAlign = 'center';
-                mapCtx.textBaseline = 'bottom';
-                mapCtx.shadowColor = colors.dark_bg === '#0f172a' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)';
-                mapCtx.shadowBlur = 4;
-                mapCtx.fillText(teamName, x, y - size - 8);
-                
-                // Win count below
-                mapCtx.font = 'bold 14px Inter';
-                mapCtx.textBaseline = 'top';
-                mapCtx.fillText(wins + 'W', x, y + size + 8);
-                mapCtx.shadowBlur = 0;
+                teamGridContainer.appendChild(teamItem);
             });
-            
-            // Enhanced Legend - Centered at bottom
-            const legendWidth = 450;
-            const legendHeight = 170;
-            const legendX = (width - legendWidth) / 2;
-            const legendY = 770;
+        }
+        
+        createTeamGrid();;
             
             // Legend background
             mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? 'rgba(30, 41, 59, 0.95)' : 'rgba(248, 250, 252, 0.95)';
