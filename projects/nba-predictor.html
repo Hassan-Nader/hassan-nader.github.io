@@ -917,6 +917,11 @@
         const mapCanvas = document.getElementById('usaMap');
         const mapCtx = mapCanvas.getContext('2d');
         
+        // Team logos as SVG paths or simple representations
+        const teamLogos = {};
+        let logosLoaded = 0;
+        const totalLogos = 30;
+        
         function drawUSAMap() {
             const colors = getChartColors();
             const width = mapCanvas.width = mapCanvas.offsetWidth * 2;
@@ -924,93 +929,174 @@
             
             mapCtx.clearRect(0, 0, width, height);
             
-            // Background
-            mapCtx.fillStyle = colors.grid + '20';
+            // Background with gradient
+            const bgGradient = mapCtx.createLinearGradient(0, 0, 0, height);
+            bgGradient.addColorStop(0, colors.grid + '10');
+            bgGradient.addColorStop(1, colors.grid + '05');
+            mapCtx.fillStyle = bgGradient;
             mapCtx.fillRect(0, 0, width, height);
             
-            // Simplified USA outline
+            // Enhanced USA outline with better proportions
             mapCtx.strokeStyle = colors.primary;
-            mapCtx.lineWidth = 3;
+            mapCtx.lineWidth = 4;
+            mapCtx.shadowColor = colors.primary + '40';
+            mapCtx.shadowBlur = 10;
+            
             mapCtx.beginPath();
-            mapCtx.moveTo(200, 400);
-            mapCtx.lineTo(300, 200);
-            mapCtx.lineTo(500, 150);
-            mapCtx.lineTo(700, 200);
-            mapCtx.lineTo(900, 180);
+            // West coast
+            mapCtx.moveTo(180, 280);
+            mapCtx.lineTo(160, 350);
+            mapCtx.lineTo(150, 450);
+            mapCtx.lineTo(160, 550);
+            mapCtx.lineTo(180, 650);
+            // Southern border
+            mapCtx.lineTo(280, 720);
+            mapCtx.lineTo(450, 750);
+            mapCtx.lineTo(650, 770);
+            mapCtx.lineTo(850, 760);
+            mapCtx.lineTo(1000, 730);
+            mapCtx.lineTo(1100, 720);
+            // Florida
+            mapCtx.lineTo(1150, 780);
+            mapCtx.lineTo(1120, 750);
+            // East coast
+            mapCtx.lineTo(1150, 650);
+            mapCtx.lineTo(1180, 550);
+            mapCtx.lineTo(1200, 450);
+            mapCtx.lineTo(1190, 350);
+            mapCtx.lineTo(1170, 300);
+            // Northern border
             mapCtx.lineTo(1100, 250);
-            mapCtx.lineTo(1300, 300);
-            mapCtx.lineTo(1400, 400);
-            mapCtx.lineTo(1450, 550);
-            mapCtx.lineTo(1400, 700);
-            mapCtx.lineTo(1300, 750);
-            mapCtx.lineTo(1100, 780);
-            mapCtx.lineTo(900, 800);
-            mapCtx.lineTo(700, 750);
-            mapCtx.lineTo(500, 700);
-            mapCtx.lineTo(350, 650);
-            mapCtx.lineTo(250, 550);
+            mapCtx.lineTo(1000, 230);
+            mapCtx.lineTo(850, 200);
+            mapCtx.lineTo(700, 180);
+            mapCtx.lineTo(550, 170);
+            mapCtx.lineTo(400, 180);
+            mapCtx.lineTo(300, 220);
+            mapCtx.lineTo(220, 250);
             mapCtx.closePath();
             mapCtx.stroke();
+            mapCtx.shadowBlur = 0;
             
-            // NBA Teams with performance indicators
+            // NBA Teams with better positioning to stay within bounds
             const teams = [
-                {name: 'GSW', x: 150, y: 450, wins: 58, color: colors.nbaBlue},
-                {name: 'LAL', x: 180, y: 550, wins: 47, color: colors.warning},
-                {name: 'LAC', x: 190, y: 560, wins: 51, color: colors.danger},
-                {name: 'PHX', x: 280, y: 600, wins: 45, color: colors.warning},
-                {name: 'POR', x: 150, y: 300, wins: 33, color: colors.danger},
-                {name: 'SAC', x: 170, y: 400, wins: 48, color: colors.warning},
-                {name: 'DEN', x: 450, y: 450, wins: 57, color: colors.nbaBlue},
-                {name: 'UTA', x: 350, y: 430, wins: 37, color: colors.danger},
-                {name: 'DAL', x: 600, y: 650, wins: 50, color: colors.success},
-                {name: 'SAS', x: 620, y: 700, wins: 22, color: colors.danger},
-                {name: 'HOU', x: 700, y: 680, wins: 41, color: colors.warning},
-                {name: 'MEM', x: 750, y: 600, wins: 27, color: colors.danger},
-                {name: 'NOP', x: 780, y: 650, wins: 49, color: colors.warning},
-                {name: 'OKC', x: 650, y: 550, wins: 40, color: colors.warning},
-                {name: 'MIN', x: 700, y: 350, wins: 56, color: colors.success},
-                {name: 'MIL', x: 800, y: 400, wins: 49, color: colors.success},
-                {name: 'CHI', x: 820, y: 420, wins: 39, color: colors.warning},
-                {name: 'IND', x: 850, y: 450, wins: 47, color: colors.warning},
-                {name: 'DET', x: 870, y: 380, wins: 14, color: colors.danger},
-                {name: 'CLE', x: 900, y: 420, wins: 48, color: colors.success},
-                {name: 'TOR', x: 950, y: 280, wins: 25, color: colors.danger},
-                {name: 'BOS', x: 1150, y: 350, wins: 64, color: colors.nbaBlue},
-                {name: 'NYK', x: 1100, y: 400, wins: 50, color: colors.success},
-                {name: 'BKN', x: 1110, y: 410, wins: 32, color: colors.danger},
-                {name: 'PHI', x: 1080, y: 430, wins: 47, color: colors.success},
-                {name: 'WAS', x: 1050, y: 460, wins: 15, color: colors.danger},
-                {name: 'CHA', x: 1000, y: 550, wins: 21, color: colors.danger},
-                {name: 'ATL', x: 950, y: 600, wins: 36, color: colors.warning},
-                {name: 'MIA', x: 1050, y: 750, wins: 46, color: colors.success},
-                {name: 'ORL', x: 1020, y: 700, wins: 47, color: colors.success}
+                // West Coast
+                {name: 'POR', x: 230, y: 320, wins: 33, logo: 'https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg'},
+                {name: 'GSW', x: 210, y: 450, wins: 58, logo: 'https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg'},
+                {name: 'SAC', x: 240, y: 400, wins: 48, logo: 'https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg'},
+                {name: 'LAL', x: 250, y: 540, wins: 47, logo: 'https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg'},
+                {name: 'LAC', x: 265, y: 555, wins: 51, logo: 'https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg'},
+                {name: 'PHX', x: 350, y: 620, wins: 45, logo: 'https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg'},
+                // Mountain
+                {name: 'UTA', x: 380, y: 450, wins: 37, logo: 'https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg'},
+                {name: 'DEN', x: 480, y: 470, wins: 57, logo: 'https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg'},
+                // Central South
+                {name: 'OKC', x: 580, y: 540, wins: 40, logo: 'https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg'},
+                {name: 'DAL', x: 580, y: 630, wins: 50, logo: 'https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg'},
+                {name: 'SAS', x: 620, y: 690, wins: 22, logo: 'https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg'},
+                {name: 'HOU', x: 700, y: 680, wins: 41, logo: 'https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg'},
+                {name: 'MEM', x: 760, y: 600, wins: 27, logo: 'https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg'},
+                {name: 'NOP', x: 800, y: 660, wins: 49, logo: 'https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg'},
+                // Upper Midwest
+                {name: 'MIN', x: 700, y: 330, wins: 56, logo: 'https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg'},
+                {name: 'MIL', x: 820, y: 380, wins: 49, logo: 'https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg'},
+                {name: 'CHI', x: 840, y: 410, wins: 39, logo: 'https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg'},
+                {name: 'IND', x: 870, y: 440, wins: 47, logo: 'https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg'},
+                {name: 'DET', x: 890, y: 390, wins: 14, logo: 'https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg'},
+                {name: 'CLE', x: 920, y: 420, wins: 48, logo: 'https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg'},
+                // Southeast
+                {name: 'ATL', x: 960, y: 600, wins: 36, logo: 'https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg'},
+                {name: 'CHA', x: 1000, y: 560, wins: 21, logo: 'https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg'},
+                {name: 'ORL', x: 1040, y: 680, wins: 47, logo: 'https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg'},
+                {name: 'MIA', x: 1090, y: 730, wins: 46, logo: 'https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg'},
+                // Northeast
+                {name: 'TOR', x: 980, y: 280, wins: 25, logo: 'https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg'},
+                {name: 'BOS', x: 1150, y: 340, wins: 64, logo: 'https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg'},
+                {name: 'NYK', x: 1100, y: 390, wins: 50, logo: 'https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg'},
+                {name: 'BKN', x: 1115, y: 405, wins: 32, logo: 'https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg'},
+                {name: 'PHI', x: 1080, y: 420, wins: 47, logo: 'https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg'},
+                {name: 'WAS', x: 1060, y: 450, wins: 15, logo: 'https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg'}
             ];
             
+            // Draw teams
             teams.forEach(team => {
-                const size = 15 + (team.wins / 64) * 20;
+                const size = 20 + (team.wins / 64) * 25;
                 
-                mapCtx.fillStyle = team.color + '40';
+                // Determine color based on wins
+                let tierColor;
+                if (team.wins >= 55) tierColor = colors.nbaBlue;
+                else if (team.wins >= 45) tierColor = colors.success;
+                else if (team.wins >= 35) tierColor = colors.warning;
+                else tierColor = colors.danger;
+                
+                // Outer glow circle
+                mapCtx.shadowColor = tierColor + '60';
+                mapCtx.shadowBlur = 15;
+                mapCtx.fillStyle = tierColor + '25';
+                mapCtx.beginPath();
+                mapCtx.arc(team.x, team.y, size + 5, 0, Math.PI * 2);
+                mapCtx.fill();
+                mapCtx.shadowBlur = 0;
+                
+                // Main circle
+                mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? '#1e293b' : '#ffffff';
                 mapCtx.beginPath();
                 mapCtx.arc(team.x, team.y, size, 0, Math.PI * 2);
                 mapCtx.fill();
                 
-                mapCtx.strokeStyle = team.color;
-                mapCtx.lineWidth = 2;
+                // Border
+                mapCtx.strokeStyle = tierColor;
+                mapCtx.lineWidth = 3;
                 mapCtx.stroke();
                 
-                mapCtx.fillStyle = colors.text;
-                mapCtx.font = 'bold 14px Inter';
-                mapCtx.textAlign = 'center';
-                mapCtx.fillText(team.name, team.x, team.y - size - 5);
+                // Check if logo is loaded
+                if (teamLogos[team.name]) {
+                    mapCtx.save();
+                    mapCtx.beginPath();
+                    mapCtx.arc(team.x, team.y, size - 3, 0, Math.PI * 2);
+                    mapCtx.clip();
+                    
+                    const logoSize = (size - 3) * 2;
+                    mapCtx.drawImage(
+                        teamLogos[team.name],
+                        team.x - logoSize/2,
+                        team.y - logoSize/2,
+                        logoSize,
+                        logoSize
+                    );
+                    mapCtx.restore();
+                } else {
+                    // Fallback: team abbreviation
+                    mapCtx.fillStyle = tierColor;
+                    mapCtx.font = `bold ${size * 0.5}px Inter`;
+                    mapCtx.textAlign = 'center';
+                    mapCtx.textBaseline = 'middle';
+                    mapCtx.fillText(team.name, team.x, team.y);
+                }
                 
-                mapCtx.font = '11px Inter';
-                mapCtx.fillText(team.wins + 'W', team.x, team.y + size + 15);
+                // Win count below
+                mapCtx.fillStyle = colors.text;
+                mapCtx.font = 'bold 13px Inter';
+                mapCtx.textAlign = 'center';
+                mapCtx.textBaseline = 'top';
+                mapCtx.shadowColor = colors.dark_bg === '#0f172a' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)';
+                mapCtx.shadowBlur = 4;
+                mapCtx.fillText(team.wins + 'W', team.x, team.y + size + 8);
+                mapCtx.shadowBlur = 0;
             });
             
-            // Legend
-            const legendX = 50;
+            // Enhanced Legend
+            const legendX = 80;
             const legendY = 850;
-            mapCtx.font = 'bold 16px Inter';
+            
+            // Legend background
+            mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? 'rgba(30, 41, 59, 0.8)' : 'rgba(248, 250, 252, 0.8)';
+            mapCtx.fillRect(legendX - 20, legendY - 30, 400, 160);
+            mapCtx.strokeStyle = colors.border;
+            mapCtx.lineWidth = 1;
+            mapCtx.strokeRect(legendX - 20, legendY - 30, 400, 160);
+            
+            mapCtx.font = 'bold 18px Inter';
             mapCtx.fillStyle = colors.text;
             mapCtx.textAlign = 'left';
             mapCtx.fillText('Performance Tiers:', legendX, legendY);
@@ -1023,18 +1109,78 @@
             ];
             
             tiers.forEach((tier, i) => {
-                mapCtx.fillStyle = tier.color;
+                // Circle
+                mapCtx.fillStyle = tier.color + '40';
                 mapCtx.beginPath();
-                mapCtx.arc(legendX + 20, legendY + 30 + i * 35, 10, 0, Math.PI * 2);
+                mapCtx.arc(legendX + 25, legendY + 35 + i * 30, 12, 0, Math.PI * 2);
                 mapCtx.fill();
                 
+                mapCtx.strokeStyle = tier.color;
+                mapCtx.lineWidth = 2;
+                mapCtx.stroke();
+                
+                // Label
                 mapCtx.fillStyle = colors.text;
-                mapCtx.font = '14px Inter';
-                mapCtx.fillText(tier.label, legendX + 40, legendY + 35 + i * 35);
+                mapCtx.font = '15px Inter';
+                mapCtx.fillText(tier.label, legendX + 50, legendY + 40 + i * 30);
             });
         }
         
-        drawUSAMap();
+        // Load team logos
+        const logoUrls = [
+            {name: 'POR', url: 'https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg'},
+            {name: 'GSW', url: 'https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg'},
+            {name: 'SAC', url: 'https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg'},
+            {name: 'LAL', url: 'https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg'},
+            {name: 'LAC', url: 'https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg'},
+            {name: 'PHX', url: 'https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg'},
+            {name: 'UTA', url: 'https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg'},
+            {name: 'DEN', url: 'https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg'},
+            {name: 'OKC', url: 'https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg'},
+            {name: 'DAL', url: 'https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg'},
+            {name: 'SAS', url: 'https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg'},
+            {name: 'HOU', url: 'https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg'},
+            {name: 'MEM', url: 'https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg'},
+            {name: 'NOP', url: 'https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg'},
+            {name: 'MIN', url: 'https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg'},
+            {name: 'MIL', url: 'https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg'},
+            {name: 'CHI', url: 'https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg'},
+            {name: 'IND', url: 'https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg'},
+            {name: 'DET', url: 'https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg'},
+            {name: 'CLE', url: 'https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg'},
+            {name: 'ATL', url: 'https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg'},
+            {name: 'CHA', url: 'https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg'},
+            {name: 'ORL', url: 'https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg'},
+            {name: 'MIA', url: 'https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg'},
+            {name: 'TOR', url: 'https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg'},
+            {name: 'BOS', url: 'https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg'},
+            {name: 'NYK', url: 'https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg'},
+            {name: 'BKN', url: 'https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg'},
+            {name: 'PHI', url: 'https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg'},
+            {name: 'WAS', url: 'https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg'}
+        ];
+        
+        logoUrls.forEach(({name, url}) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => {
+                teamLogos[name] = img;
+                logosLoaded++;
+                if (logosLoaded === totalLogos) {
+                    drawUSAMap();
+                }
+            };
+            img.onerror = () => {
+                logosLoaded++;
+                if (logosLoaded === totalLogos) {
+                    drawUSAMap();
+                }
+            };
+            img.src = url;
+        });
+        
+        // Initial draw with fallback
+        setTimeout(() => drawUSAMap(), 100);
         window.addEventListener('resize', drawUSAMap);
 
         // Conference Distribution Chart
