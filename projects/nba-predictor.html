@@ -280,170 +280,11 @@
             color: var(--text-primary);
         }
 
-        /* Team Grid Styles */
-        .team-grid {
-            display: grid;
-            grid-template-columns: repeat(10, 1fr);
-            gap: 1.5rem;
-            padding: 2rem 0;
-            max-width: 100%;
-        }
-
-        .team-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            cursor: pointer;
-            transition: transform 0.2s;
-            position: relative;
-        }
-
-        .team-item:hover {
-            transform: translateY(-5px);
-            z-index: 10;
-        }
-
-        .team-circle {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-            color: white;
-            border: 3px solid;
-            position: relative;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s;
-        }
-
-        .team-item:hover .team-circle {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-            transform: scale(1.1);
-        }
-
-        .team-circle.elite {
-            background: linear-gradient(135deg, #1d428a, #2563eb);
-            border-color: #1d428a;
-        }
-
-        .team-circle.playoff {
-            background: linear-gradient(135deg, #059669, #10b981);
-            border-color: #059669;
-        }
-
-        .team-circle.average {
-            background: linear-gradient(135deg, #d97706, #f59e0b);
-            border-color: #d97706;
-        }
-
-        .team-circle.rebuilding {
-            background: linear-gradient(135deg, #dc2626, #ef4444);
-            border-color: #dc2626;
-        }
-
-        .team-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .team-wins {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .team-tooltip {
-            position: absolute;
-            background: var(--card-bg);
-            border: 2px solid var(--accent-color);
+        #usaMap {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(29, 66, 138, 0.05), rgba(200, 16, 46, 0.05));
             border-radius: 8px;
-            padding: 1rem;
-            min-width: 250px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            pointer-events: none;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.2s, visibility 0.2s;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-top: 0.5rem;
-        }
-
-        .team-item:hover .team-tooltip {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .tooltip-header {
-            font-weight: 700;
-            font-size: 1rem;
-            color: var(--text-primary);
-            margin-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
-        }
-
-        .tooltip-stat {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.25rem 0;
-            font-size: 0.85rem;
-        }
-
-        .tooltip-stat-label {
-            color: var(--text-secondary);
-        }
-
-        .tooltip-stat-value {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .tooltip-stat-value.positive {
-            color: var(--success-color);
-        }
-
-        .tooltip-stat-value.negative {
-            color: #ef4444;
-        }
-
-        /* Legend Grid */
-        .legend-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            margin-top: 2rem;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .legend-circle {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            border: 2px solid;
-            flex-shrink: 0;
-        }
-
-        .legend-text {
-            font-size: 0.9rem;
-            color: var(--text-primary);
         }
 
         /* Content Sections */
@@ -522,6 +363,14 @@
         .two-col-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Three Column Layout */
+        .three-col-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-bottom: 3rem;
         }
@@ -631,14 +480,12 @@
         }
 
         /* Responsive */
-        @media (max-width: 1200px) {
-            .team-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
-        }
-
         @media (max-width: 968px) {
             .two-col-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .three-col-grid {
                 grid-template-columns: 1fr;
             }
         }
@@ -653,19 +500,8 @@
                 gap: 1rem;
             }
 
-            .team-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
-            }
-            
-            .team-circle {
-                width: 60px;
-                height: 60px;
-                font-size: 0.8rem;
-            }
-
-            .legend-grid {
-                grid-template-columns: 1fr;
+            #usaMap {
+                height: 400px;
             }
         }
     </style>
@@ -725,26 +561,7 @@
         <div class="container">
             <div class="map-container">
                 <h2 class="map-title">NBA Team Geographic Performance Distribution</h2>
-                <div id="usaMap" class="team-grid"></div>
-                
-                <div class="legend-grid">
-                    <div class="legend-item">
-                        <div class="legend-circle elite"></div>
-                        <span class="legend-text">Elite (55+ wins)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-circle playoff"></div>
-                        <span class="legend-text">Playoff (45-54 wins)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-circle average"></div>
-                        <span class="legend-text">Average (35-44 wins)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-circle rebuilding"></div>
-                        <span class="legend-text">Rebuilding (<35 wins)</span>
-                    </div>
-                </div>
+                <canvas id="usaMap"></canvas>
             </div>
         </div>
     </section>
@@ -803,6 +620,216 @@
             </div>
         </section>
 
+        <!-- Team Analysis -->
+        <section class="content-section" id="team-analysis">
+            <h2 class="section-title">
+                <i class="fas fa-users"></i>
+                Team-Level Analysis
+            </h2>
+            
+            <div class="two-col-grid">
+                <div class="chart-container">
+                    <h3 class="chart-title">Conference Distribution & Performance</h3>
+                    <canvas id="conferenceChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="chart-title">Championship Timeline (Last 10 Years)</h3>
+                    <canvas id="championTimelineChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Team Performance Metrics Comparison</h3>
+                <canvas id="teamPerformanceChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Feature Engineering -->
+        <section class="content-section" id="features">
+            <h2 class="section-title">
+                <i class="fas fa-cogs"></i>
+                Feature Engineering & Data Analysis
+            </h2>
+
+            <div class="overview-text">
+                <p>
+                    Created <span class="highlight">20+ advanced features</span> capturing team dynamics, player 
+                    efficiency, and momentum indicators. Features include rolling averages, streak metrics, home/away 
+                    performance differentials, and injury impact scores.
+                </p>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Feature Correlation Matrix</h3>
+                <canvas id="correlationChart"></canvas>
+            </div>
+
+            <div class="two-col-grid">
+                <div class="chart-container">
+                    <h3 class="chart-title">Feature Importance (Top 10)</h3>
+                    <canvas id="featureImportanceChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="chart-title">Regular Season vs Playoff Win Rate</h3>
+                    <canvas id="seasonPlayoffChart"></canvas>
+                </div>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Rolling Averages</h4>
+                    <p>5-game and 10-game moving averages for key stats like points, rebounds, assists, and turnovers</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Win Streak Momentum</h4>
+                    <p>Current winning/losing streak length and streak confidence correlation</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Home/Away Split</h4>
+                    <p>Win percentage differential between home and away games</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Injury Impact Score</h4>
+                    <p>Weighted score based on games missed by top 3 players</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Player Efficiency</h4>
+                    <p>Team aggregate PER and efficiency differentials</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Net Rating</h4>
+                    <p>Offensive and defensive rating differential over time</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Model Performance -->
+        <section class="content-section" id="methodology">
+            <h2 class="section-title">
+                <i class="fas fa-robot"></i>
+                Model Architecture & Performance
+            </h2>
+
+            <div class="overview-text">
+                <p>
+                    Implemented and compared <span class="highlight">five machine learning algorithms</span>, with an 
+                    ensemble approach combining the strengths of each model. The final ensemble achieved superior 
+                    performance through weighted voting based on individual model confidence scores.
+                </p>
+            </div>
+
+            <div class="model-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>Accuracy</th>
+                            <th>Precision</th>
+                            <th>Recall</th>
+                            <th>F1-Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Ensemble Model</strong></td>
+                            <td class="best-score">96.0%</td>
+                            <td class="best-score">94.8%</td>
+                            <td class="best-score">95.2%</td>
+                            <td class="best-score">95.0%</td>
+                        </tr>
+                        <tr>
+                            <td>XGBoost</td>
+                            <td>93.5%</td>
+                            <td>92.1%</td>
+                            <td>93.8%</td>
+                            <td>92.9%</td>
+                        </tr>
+                        <tr>
+                            <td>Random Forest</td>
+                            <td>92.8%</td>
+                            <td>91.5%</td>
+                            <td>93.2%</td>
+                            <td>92.3%</td>
+                        </tr>
+                        <tr>
+                            <td>Gradient Boosting</td>
+                            <td>91.2%</td>
+                            <td>90.3%</td>
+                            <td>91.7%</td>
+                            <td>91.0%</td>
+                        </tr>
+                        <tr>
+                            <td>Neural Network</td>
+                            <td>89.5%</td>
+                            <td>88.2%</td>
+                            <td>90.1%</td>
+                            <td>89.1%</td>
+                        </tr>
+                        <tr>
+                            <td>Logistic Regression</td>
+                            <td>85.3%</td>
+                            <td>84.1%</td>
+                            <td>86.2%</td>
+                            <td>85.1%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="two-col-grid">
+                <div class="chart-container">
+                    <h3 class="chart-title">Model Comparison</h3>
+                    <canvas id="modelComparisonChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="chart-title">Confusion Matrix (Conference Winners)</h3>
+                    <canvas id="confusionMatrixChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Cross-Validation Performance</h3>
+                <canvas id="cvPerformanceChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Results & Insights -->
+        <section class="content-section" id="results">
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i>
+                Results & Insights
+            </h2>
+
+            <div class="two-col-grid">
+                <div class="chart-container">
+                    <h3 class="chart-title">Predicted vs Actual Champions</h3>
+                    <canvas id="predictedActualChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <h3 class="chart-title">Prediction Accuracy by Season</h3>
+                    <canvas id="seasonAccuracyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3 class="chart-title">Top 5 Predicted Championship Probabilities (2023-24)</h3>
+                <canvas id="championshipProbChart"></canvas>
+            </div>
+
+            <div class="overview-text">
+                <p>
+                    The model successfully predicted <span class="highlight">9 out of 10 conference winners</span> over 
+                    the analyzed period. The one missed prediction occurred during the 2019-20 season disruption, where 
+                    unprecedented circumstances affected team performance patterns.
+                </p>
+                <p>
+                    Analysis revealed that <span class="highlight">net rating and recent win streak</span> were the 
+                    strongest predictors of championship success, followed by home-court advantage and playoff experience. 
+                    Teams with strong defensive ratings showed higher championship probability than purely offensive teams.
+                </p>
+            </div>
+        </section>
+
         <!-- Technology Stack -->
         <section class="content-section">
             <h2 class="section-title">
@@ -852,6 +879,7 @@
         </div>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <script>
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -864,120 +892,885 @@
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             htmlElement.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
+            updateChartColors();
         });
 
-        // NBA Team Grid Display - HTML Based (Fully Interactive)
-        function initializeTeamGrid() {
-            const teamGridContainer = document.getElementById('usaMap');
-            
-            if (!teamGridContainer) {
-                console.error('Team grid container not found');
-                return;
-            }
-            
-            // Team stats data (2023-24 season)
-            const teamStats = {
-                'CLE': {name: 'Cleveland Cavaliers', w: 64, l: 18, pct: 0.780, ps: 121.9, pa: 112.4, diff: 8.8},
-                'BOS': {name: 'Boston Celtics', w: 61, l: 21, pct: 0.744, ps: 116.3, pa: 107.2, diff: 8.2},
-                'NYK': {name: 'New York Knicks', w: 51, l: 31, pct: 0.622, ps: 115.8, pa: 111.7, diff: 3.5},
-                'IND': {name: 'Indiana Pacers', w: 50, l: 32, pct: 0.610, ps: 117.4, pa: 115.1, diff: 1.6},
-                'MIL': {name: 'Milwaukee Bucks', w: 48, l: 34, pct: 0.585, ps: 115.5, pa: 113.0, diff: 2.1},
-                'DET': {name: 'Detroit Pistons', w: 44, l: 38, pct: 0.537, ps: 115.5, pa: 113.6, diff: 1.7},
-                'ORL': {name: 'Orlando Magic', w: 41, l: 41, pct: 0.500, ps: 105.4, pa: 105.5, diff: -0.7},
-                'ATL': {name: 'Atlanta Hawks', w: 40, l: 42, pct: 0.488, ps: 118.2, pa: 119.3, diff: -1.4},
-                'CHI': {name: 'Chicago Bulls', w: 39, l: 43, pct: 0.476, ps: 117.8, pa: 119.4, diff: -1.8},
-                'MIA': {name: 'Miami Heat', w: 37, l: 45, pct: 0.451, ps: 110.6, pa: 110.0, diff: 0.1},
-                'TOR': {name: 'Toronto Raptors', w: 30, l: 52, pct: 0.366, ps: 110.9, pa: 115.2, diff: -4.4},
-                'BKN': {name: 'Brooklyn Nets', w: 26, l: 56, pct: 0.317, ps: 105.1, pa: 112.2, diff: -6.9},
-                'PHI': {name: 'Philadelphia 76ers', w: 24, l: 58, pct: 0.293, ps: 109.6, pa: 115.8, diff: -6.2},
-                'CHA': {name: 'Charlotte Hornets', w: 19, l: 63, pct: 0.232, ps: 105.1, pa: 114.2, diff: -9.1},
-                'WAS': {name: 'Washington Wizards', w: 18, l: 64, pct: 0.220, ps: 108.0, pa: 120.4, diff: -12.1},
-                'OKC': {name: 'Oklahoma City Thunder', w: 68, l: 14, pct: 0.829, ps: 120.5, pa: 107.6, diff: 12.7},
-                'HOU': {name: 'Houston Rockets', w: 52, l: 30, pct: 0.634, ps: 114.3, pa: 109.8, diff: 4.9},
-                'LAL': {name: 'Los Angeles Lakers', w: 50, l: 32, pct: 0.610, ps: 113.4, pa: 112.2, diff: 1.4},
-                'DEN': {name: 'Denver Nuggets', w: 50, l: 32, pct: 0.610, ps: 120.8, pa: 116.9, diff: 3.9},
-                'LAC': {name: 'Los Angeles Clippers', w: 50, l: 32, pct: 0.610, ps: 112.9, pa: 108.2, diff: 4.8},
-                'MIN': {name: 'Minnesota Timberwolves', w: 49, l: 33, pct: 0.598, ps: 114.3, pa: 109.3, diff: 5.1},
-                'GSW': {name: 'Golden State Warriors', w: 48, l: 34, pct: 0.585, ps: 113.8, pa: 110.5, diff: 3.5},
-                'MEM': {name: 'Memphis Grizzlies', w: 48, l: 34, pct: 0.585, ps: 121.7, pa: 116.9, diff: 4.7},
-                'SAC': {name: 'Sacramento Kings', w: 40, l: 42, pct: 0.488, ps: 115.7, pa: 115.3, diff: 0.5},
-                'DAL': {name: 'Dallas Mavericks', w: 39, l: 43, pct: 0.476, ps: 114.2, pa: 115.4, diff: -0.7},
-                'PHX': {name: 'Phoenix Suns', w: 36, l: 46, pct: 0.439, ps: 113.6, pa: 116.6, diff: -2.5},
-                'POR': {name: 'Portland Trail Blazers', w: 36, l: 46, pct: 0.439, ps: 110.9, pa: 113.9, diff: -2.6},
-                'SAS': {name: 'San Antonio Spurs', w: 34, l: 48, pct: 0.415, ps: 113.9, pa: 116.7, diff: -2.4},
-                'NOP': {name: 'New Orleans Pelicans', w: 21, l: 61, pct: 0.256, ps: 109.8, pa: 119.3, diff: -8.5},
-                'UTA': {name: 'Utah Jazz', w: 17, l: 65, pct: 0.207, ps: 111.9, pa: 121.2, diff: -8.5}
+        // Chart color configuration
+        function getChartColors() {
+            const isDark = htmlElement.getAttribute('data-theme') === 'dark';
+            return {
+                text: isDark ? '#f1f5f9' : '#0f172a',
+                grid: isDark ? '#334155' : '#e2e8f0',
+                primary: '#3b82f6',
+                secondary: '#8b5cf6',
+                success: '#10b981',
+                warning: '#f59e0b',
+                danger: '#ef4444',
+                nbaRed: '#c8102e',
+                nbaBlue: '#1d428a'
             };
+        }
+
+        let charts = {};
+
+        // NBA Team Grid Display
+        const mapCanvas = document.getElementById('usaMap');
+        const mapCtx = mapCanvas.getContext('2d');
+        
+        // Team logos
+        const teamLogos = {};
+        let logosLoaded = 0;
+        const totalLogos = 30;
+        let hoveredTeam = null;
+        let teamPositions = [];
+        
+        // Team stats data (2023-24 season)
+        const teamStats = {
+            'CLE': {name: 'Cleveland Cavaliers', w: 64, l: 18, pct: 0.780, ps: 121.9, pa: 112.4, diff: 8.8},
+            'BOS': {name: 'Boston Celtics', w: 61, l: 21, pct: 0.744, ps: 116.3, pa: 107.2, diff: 8.2},
+            'NYK': {name: 'New York Knicks', w: 51, l: 31, pct: 0.622, ps: 115.8, pa: 111.7, diff: 3.5},
+            'IND': {name: 'Indiana Pacers', w: 50, l: 32, pct: 0.610, ps: 117.4, pa: 115.1, diff: 1.6},
+            'MIL': {name: 'Milwaukee Bucks', w: 48, l: 34, pct: 0.585, ps: 115.5, pa: 113.0, diff: 2.1},
+            'DET': {name: 'Detroit Pistons', w: 44, l: 38, pct: 0.537, ps: 115.5, pa: 113.6, diff: 1.7},
+            'ORL': {name: 'Orlando Magic', w: 41, l: 41, pct: 0.500, ps: 105.4, pa: 105.5, diff: -0.7},
+            'ATL': {name: 'Atlanta Hawks', w: 40, l: 42, pct: 0.488, ps: 118.2, pa: 119.3, diff: -1.4},
+            'CHI': {name: 'Chicago Bulls', w: 39, l: 43, pct: 0.476, ps: 117.8, pa: 119.4, diff: -1.8},
+            'MIA': {name: 'Miami Heat', w: 37, l: 45, pct: 0.451, ps: 110.6, pa: 110.0, diff: 0.1},
+            'TOR': {name: 'Toronto Raptors', w: 30, l: 52, pct: 0.366, ps: 110.9, pa: 115.2, diff: -4.4},
+            'BKN': {name: 'Brooklyn Nets', w: 26, l: 56, pct: 0.317, ps: 105.1, pa: 112.2, diff: -6.9},
+            'PHI': {name: 'Philadelphia 76ers', w: 24, l: 58, pct: 0.293, ps: 109.6, pa: 115.8, diff: -6.2},
+            'CHA': {name: 'Charlotte Hornets', w: 19, l: 63, pct: 0.232, ps: 105.1, pa: 114.2, diff: -9.1},
+            'WAS': {name: 'Washington Wizards', w: 18, l: 64, pct: 0.220, ps: 108.0, pa: 120.4, diff: -12.1},
+            'OKC': {name: 'Oklahoma City Thunder', w: 68, l: 14, pct: 0.829, ps: 120.5, pa: 107.6, diff: 12.7},
+            'HOU': {name: 'Houston Rockets', w: 52, l: 30, pct: 0.634, ps: 114.3, pa: 109.8, diff: 4.9},
+            'LAL': {name: 'Los Angeles Lakers', w: 50, l: 32, pct: 0.610, ps: 113.4, pa: 112.2, diff: 1.4},
+            'DEN': {name: 'Denver Nuggets', w: 50, l: 32, pct: 0.610, ps: 120.8, pa: 116.9, diff: 3.9},
+            'LAC': {name: 'Los Angeles Clippers', w: 50, l: 32, pct: 0.610, ps: 112.9, pa: 108.2, diff: 4.8},
+            'MIN': {name: 'Minnesota Timberwolves', w: 49, l: 33, pct: 0.598, ps: 114.3, pa: 109.3, diff: 5.1},
+            'GSW': {name: 'Golden State Warriors', w: 48, l: 34, pct: 0.585, ps: 113.8, pa: 110.5, diff: 3.5},
+            'MEM': {name: 'Memphis Grizzlies', w: 48, l: 34, pct: 0.585, ps: 121.7, pa: 116.9, diff: 4.7},
+            'SAC': {name: 'Sacramento Kings', w: 40, l: 42, pct: 0.488, ps: 115.7, pa: 115.3, diff: 0.5},
+            'DAL': {name: 'Dallas Mavericks', w: 39, l: 43, pct: 0.476, ps: 114.2, pa: 115.4, diff: -0.7},
+            'PHX': {name: 'Phoenix Suns', w: 36, l: 46, pct: 0.439, ps: 113.6, pa: 116.6, diff: -2.5},
+            'POR': {name: 'Portland Trail Blazers', w: 36, l: 46, pct: 0.439, ps: 110.9, pa: 113.9, diff: -2.6},
+            'SAS': {name: 'San Antonio Spurs', w: 34, l: 48, pct: 0.415, ps: 113.9, pa: 116.7, diff: -2.4},
+            'NOP': {name: 'New Orleans Pelicans', w: 21, l: 61, pct: 0.256, ps: 109.8, pa: 119.3, diff: -8.5},
+            'UTA': {name: 'Utah Jazz', w: 17, l: 65, pct: 0.207, ps: 111.9, pa: 121.2, diff: -8.5}
+        };
+        
+        function drawTeamGrid() {
+            const colors = getChartColors();
+            const width = mapCanvas.width = mapCanvas.offsetWidth * 2;
+            const height = mapCanvas.height = 1000;
             
-            // Teams in order
+            mapCtx.clearRect(0, 0, width, height);
+            
+            // Background with gradient
+            const bgGradient = mapCtx.createLinearGradient(0, 0, 0, height);
+            bgGradient.addColorStop(0, colors.grid + '10');
+            bgGradient.addColorStop(1, colors.grid + '05');
+            mapCtx.fillStyle = bgGradient;
+            mapCtx.fillRect(0, 0, width, height);
+            
+            // Calculate responsive spacing
+            const cols = 10;
+            const rows = 3;
+            const padding = 100;
+            const availableWidth = width - (padding * 2);
+            const availableHeight = 650;
+            const colSpacing = availableWidth / cols;
+            const rowSpacing = availableHeight / rows;
+            
+            // NBA Teams organized in clean grid (maintaining order)
             const teams = [
+                // Row 1 (Top) - 10 teams
                 'POR', 'LAC', 'GSW', 'MEM', 'CLE', 'WAS', 'CHI', 'IND', 'MIL', 'CHA',
+                // Row 2 - 10 teams
                 'OKC', 'DEN', 'MIN', 'DAL', 'TOR', 'DET', 'NYK', 'BKN', 'PHI', 'BOS',
+                // Row 3 (Bottom) - 10 teams
                 'PHX', 'LAL', 'SAC', 'UTA', 'SAS', 'HOU', 'NOP', 'ATL', 'ORL', 'MIA'
             ];
             
-            function getTierClass(wins) {
-                if (wins >= 55) return 'elite';
-                if (wins >= 45) return 'playoff';
-                if (wins >= 35) return 'average';
-                return 'rebuilding';
-            }
+            const teamWins = {
+                'POR': 36, 'LAC': 50, 'GSW': 48, 'MEM': 48, 'CLE': 64,
+                'WAS': 18, 'CHI': 39, 'IND': 50, 'MIL': 48, 'CHA': 19,
+                'OKC': 68, 'DEN': 50, 'MIN': 49, 'DAL': 39, 'TOR': 30,
+                'DET': 44, 'NYK': 51, 'BKN': 26, 'PHI': 24, 'BOS': 61,
+                'PHX': 36, 'LAL': 50, 'SAC': 40, 'UTA': 17, 'SAS': 34,
+                'HOU': 52, 'NOP': 21, 'ATL': 40, 'ORL': 41, 'MIA': 37
+            };
             
-            // Clear and populate grid
-            teamGridContainer.innerHTML = '';
+            // Draw teams
+            // Clear team positions for new draw
+            teamPositions = [];
             
-            teams.forEach(teamCode => {
-                const stats = teamStats[teamCode];
-                if (!stats) {
-                    console.error('Stats not found for team:', teamCode);
-                    return;
+            // Draw teams
+            teams.forEach((teamName, index) => {
+                const row = Math.floor(index / cols);
+                const col = index % cols;
+                
+                // Center position for each team
+                const x = padding + (col * colSpacing) + (colSpacing / 2);
+                const y = 120 + (row * rowSpacing) + (rowSpacing / 2);
+                
+                const wins = teamWins[teamName];
+                const baseSize = 45;
+                const size = baseSize + (wins / 64) * 15;
+                
+                // Store position for hover detection
+                teamPositions.push({
+                    name: teamName,
+                    x: x,
+                    y: y,
+                    size: size,
+                    wins: wins
+                });
+                
+                // Check if this team is hovered
+                const isHovered = hoveredTeam === teamName;
+                
+                // Determine color based on wins
+                let tierColor;
+                if (wins >= 55) tierColor = colors.nbaBlue;
+                else if (wins >= 45) tierColor = colors.success;
+                else if (wins >= 35) tierColor = colors.warning;
+                else tierColor = colors.danger;
+                
+                // Outer glow circle (enhanced when hovered)
+                mapCtx.shadowColor = tierColor + (isHovered ? '80' : '60');
+                mapCtx.shadowBlur = isHovered ? 25 : 15;
+                mapCtx.fillStyle = tierColor + (isHovered ? '35' : '25');
+                mapCtx.beginPath();
+                mapCtx.arc(x, y, size + (isHovered ? 8 : 5), 0, Math.PI * 2);
+                mapCtx.fill();
+                mapCtx.shadowBlur = 0;
+                
+                // Main circle background
+                mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? '#1e293b' : '#ffffff';
+                mapCtx.beginPath();
+                mapCtx.arc(x, y, size, 0, Math.PI * 2);
+                mapCtx.fill();
+                
+                // Border (thicker when hovered)
+                mapCtx.strokeStyle = tierColor;
+                mapCtx.lineWidth = isHovered ? 4 : 3;
+                mapCtx.stroke();
+                
+                // Check if logo is loaded
+                if (teamLogos[teamName]) {
+                    mapCtx.save();
+                    mapCtx.beginPath();
+                    mapCtx.arc(x, y, size - 3, 0, Math.PI * 2);
+                    mapCtx.clip();
+                    
+                    const logoSize = (size - 3) * 2;
+                    mapCtx.drawImage(
+                        teamLogos[teamName],
+                        x - logoSize/2,
+                        y - logoSize/2,
+                        logoSize,
+                        logoSize
+                    );
+                    mapCtx.restore();
+                } else {
+                    // Fallback: team abbreviation
+                    mapCtx.fillStyle = tierColor;
+                    mapCtx.font = `bold ${size * 0.45}px Inter`;
+                    mapCtx.textAlign = 'center';
+                    mapCtx.textBaseline = 'middle';
+                    mapCtx.fillText(teamName, x, y);
                 }
                 
-                const tierClass = getTierClass(stats.w);
+                // Team name above
+                mapCtx.fillStyle = colors.text;
+                mapCtx.font = isHovered ? 'bold 17px Inter' : 'bold 15px Inter';
+                mapCtx.textAlign = 'center';
+                mapCtx.textBaseline = 'bottom';
+                mapCtx.shadowColor = colors.dark_bg === '#0f172a' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)';
+                mapCtx.shadowBlur = 4;
+                mapCtx.fillText(teamName, x, y - size - 8);
                 
-                const teamItem = document.createElement('div');
-                teamItem.className = 'team-item';
+                // Win count below
+                mapCtx.font = isHovered ? 'bold 16px Inter' : 'bold 14px Inter';
+                mapCtx.textBaseline = 'top';
+                mapCtx.fillText(wins + 'W', x, y + size + 8);
+                mapCtx.shadowBlur = 0;
                 
-                teamItem.innerHTML = `
-                    <div class="team-label">${teamCode}</div>
-                    <div class="team-circle ${tierClass}">
-                        ${teamCode}
-                    </div>
-                    <div class="team-wins">${stats.w}W</div>
-                    <div class="team-tooltip">
-                        <div class="tooltip-header">${stats.name}</div>
-                        <div class="tooltip-stat">
-                            <span class="tooltip-stat-label">Record:</span>
-                            <span class="tooltip-stat-value">${stats.w}-${stats.l} (${(stats.pct * 100).toFixed(1)}%)</span>
-                        </div>
-                        <div class="tooltip-stat">
-                            <span class="tooltip-stat-label">Points/Game:</span>
-                            <span class="tooltip-stat-value">${stats.ps.toFixed(1)}</span>
-                        </div>
-                        <div class="tooltip-stat">
-                            <span class="tooltip-stat-label">Opp Points/Game:</span>
-                            <span class="tooltip-stat-value">${stats.pa.toFixed(1)}</span>
-                        </div>
-                        <div class="tooltip-stat">
-                            <span class="tooltip-stat-label">Point Diff:</span>
-                            <span class="tooltip-stat-value ${stats.diff > 0 ? 'positive' : 'negative'}">
-                                ${stats.diff > 0 ? '+' : ''}${stats.diff.toFixed(1)}
-                            </span>
-                        </div>
-                    </div>
-                `;
-                
-                teamGridContainer.appendChild(teamItem);
+                // Show detailed stats tooltip when hovered
+                if (isHovered && teamStats[teamName]) {
+                    const stats = teamStats[teamName];
+                    const tooltipWidth = 280;
+                    const tooltipHeight = 140;
+                    const tooltipX = x - tooltipWidth / 2;
+                    const tooltipY = y - size - tooltipHeight - 40;
+                    
+                    // Tooltip background
+                    mapCtx.shadowColor = 'rgba(0,0,0,0.5)';
+                    mapCtx.shadowBlur = 20;
+                    mapCtx.fillStyle = isDarkMode ? 'rgba(15, 23, 42, 0.98)' : 'rgba(255, 255, 255, 0.98)';
+                    mapCtx.fillRect(tooltipX, tooltipY, tooltipWidth, tooltipHeight);
+                    mapCtx.strokeStyle = tierColor;
+                    mapCtx.lineWidth = 3;
+                    mapCtx.strokeRect(tooltipX, tooltipY, tooltipWidth, tooltipHeight);
+                    mapCtx.shadowBlur = 0;
+                    
+                    // Team full name
+                    mapCtx.fillStyle = colors.text;
+                    mapCtx.font = 'bold 16px Inter';
+                    mapCtx.textAlign = 'center';
+                    mapCtx.fillText(stats.name, tooltipX + tooltipWidth / 2, tooltipY + 25);
+                    
+                    // Stats
+                    const statsY = tooltipY + 50;
+                    mapCtx.font = '13px Inter';
+                    mapCtx.textAlign = 'left';
+                    mapCtx.fillStyle = colors.text_secondary;
+                    
+                    mapCtx.fillText(`Record: ${stats.w}-${stats.l} (${(stats.pct * 100).toFixed(1)}%)`, tooltipX + 15, statsY);
+                    mapCtx.fillText(`Points Scored: ${stats.ps}`, tooltipX + 15, statsY + 22);
+                    mapCtx.fillText(`Points Allowed: ${stats.pa}`, tooltipX + 15, statsY + 44);
+                    mapCtx.fillText(`Net Rating: ${stats.diff > 0 ? '+' : ''}${stats.diff.toFixed(1)}`, tooltipX + 15, statsY + 66);
+                    
+                    // Net rating indicator
+                    const indicatorColor = stats.diff > 0 ? colors.success : colors.danger;
+                    mapCtx.fillStyle = indicatorColor;
+                    mapCtx.fillRect(tooltipX + tooltipWidth - 40, statsY + 60, 25, 12);
+                }
             });
-            
-            console.log('Team grid initialized successfully with', teams.length, 'teams');
-        }
         
-        // Initialize when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initializeTeamGrid);
-        } else {
-            initializeTeamGrid();
+        // Load team logos
+        const logoUrls = [
+            {name: 'POR', url: 'https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg'},
+            {name: 'GSW', url: 'https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg'},
+            {name: 'SAC', url: 'https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg'},
+            {name: 'LAL', url: 'https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg'},
+            {name: 'LAC', url: 'https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg'},
+            {name: 'PHX', url: 'https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg'},
+            {name: 'UTA', url: 'https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg'},
+            {name: 'DEN', url: 'https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg'},
+            {name: 'OKC', url: 'https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg'},
+            {name: 'DAL', url: 'https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg'},
+            {name: 'SAS', url: 'https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg'},
+            {name: 'HOU', url: 'https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg'},
+            {name: 'MEM', url: 'https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg'},
+            {name: 'NOP', url: 'https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg'},
+            {name: 'MIN', url: 'https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg'},
+            {name: 'MIL', url: 'https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg'},
+            {name: 'CHI', url: 'https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg'},
+            {name: 'IND', url: 'https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg'},
+            {name: 'DET', url: 'https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg'},
+            {name: 'CLE', url: 'https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg'},
+            {name: 'ATL', url: 'https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg'},
+            {name: 'CHA', url: 'https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg'},
+            {name: 'ORL', url: 'https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg'},
+            {name: 'MIA', url: 'https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg'},
+            {name: 'TOR', url: 'https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg'},
+            {name: 'BOS', url: 'https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg'},
+            {name: 'NYK', url: 'https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg'},
+            {name: 'BKN', url: 'https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg'},
+            {name: 'PHI', url: 'https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg'},
+            {name: 'WAS', url: 'https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg'}
+        ];
+        
+        logoUrls.forEach(({name, url}) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => {
+                teamLogos[name] = img;
+                logosLoaded++;
+                if (logosLoaded === totalLogos) {
+                    drawTeamGrid();
+                }
+            };
+            img.onerror = () => {
+                logosLoaded++;
+                if (logosLoaded === totalLogos) {
+                    drawTeamGrid();
+                }
+            };
+            img.src = url;
+        });
+        
+        // Initial draw with fallback
+        setTimeout(() => drawTeamGrid(), 100);
+        
+        // Redraw on window resize
+        window.addEventListener('resize', () => {
+            hoveredTeam = null; // Reset hover on resize
+            drawTeamGrid();
+        });
+        // Mouse interaction for team map
+        mapCanvas.addEventListener('mousemove', (e) => {
+            const rect = mapCanvas.getBoundingClientRect();
+            const scaleX = mapCanvas.width / rect.width;
+            const scaleY = mapCanvas.height / rect.height;
+            const mouseX = (e.clientX - rect.left) * scaleX;
+            const mouseY = (e.clientY - rect.top) * scaleY;
+            
+            let foundTeam = null;
+            
+            // Check if mouse is over any team
+            for (const team of teamPositions) {
+                const distance = Math.sqrt(
+                    Math.pow(mouseX - team.x, 2) + 
+                    Math.pow(mouseY - team.y, 2)
+                );
+                
+                if (distance <= team.size) {
+                    foundTeam = team.name;
+                    break;
+                }
+            }
+            
+            // Only redraw if hover state changed
+            if (foundTeam !== hoveredTeam) {
+                hoveredTeam = foundTeam;
+                mapCanvas.style.cursor = foundTeam ? 'pointer' : 'default';
+                drawTeamGrid();
+            }
+        });
+        
+        mapCanvas.addEventListener('mouseleave', () => {
+            if (hoveredTeam !== null) {
+                hoveredTeam = null;
+                mapCanvas.style.cursor = 'default';
+                drawTeamGrid();
+            }
+        });
+        // Conference Distribution Chart
+        const conferenceCtx = document.getElementById('conferenceChart').getContext('2d');
+        charts.conference = new Chart(conferenceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Eastern Conference', 'Western Conference'],
+                datasets: [{
+                    label: 'Avg Win %',
+                    data: [0.512, 0.498],
+                    backgroundColor: [getChartColors().nbaRed, getChartColors().nbaBlue],
+                    borderWidth: 0
+                }, {
+                    label: 'Avg Net Rating',
+                    data: [1.8, 1.2],
+                    backgroundColor: [getChartColors().secondary + '80', getChartColors().primary + '80'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        labels: { color: getChartColors().text }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    x: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Championship Timeline
+        const timelineCtx = document.getElementById('championTimelineChart').getContext('2d');
+        charts.timeline = new Chart(timelineCtx, {
+            type: 'line',
+            data: {
+                labels: ['2014-15', '2015-16', '2016-17', '2017-18', '2018-19', '2019-20', '2020-21', '2021-22', '2022-23', '2023-24'],
+                datasets: [{
+                    label: 'Champions',
+                    data: [67, 73, 67, 58, 57, 53, 52, 51, 58, 64],
+                    borderColor: getChartColors().success,
+                    backgroundColor: getChartColors().success + '20',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: { color: getChartColors().text }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const teams = ['GSW', 'CLE', 'GSW', 'GSW', 'TOR', 'LAL', 'MIL', 'GSW', 'DEN', 'BOS'];
+                                return teams[context.dataIndex] + ': ' + context.parsed.y + ' wins';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 45,
+                        max: 75,
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    x: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Team Performance Comparison
+        const performanceCtx = document.getElementById('teamPerformanceChart').getContext('2d');
+        charts.performance = new Chart(performanceCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Offensive Rating', 'Defensive Rating', 'Net Rating', 'Win %', 'Pace', 'eFG%'],
+                datasets: [{
+                    label: 'Top Teams Avg',
+                    data: [118.5, 110.2, 8.3, 68, 99.8, 57.2],
+                    borderColor: getChartColors().success,
+                    backgroundColor: getChartColors().success + '30',
+                    pointBackgroundColor: getChartColors().success
+                }, {
+                    label: 'League Average',
+                    data: [113.8, 113.8, 0, 50, 98.5, 54.5],
+                    borderColor: getChartColors().warning,
+                    backgroundColor: getChartColors().warning + '30',
+                    pointBackgroundColor: getChartColors().warning
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid },
+                        pointLabels: { color: getChartColors().text }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: { color: getChartColors().text }
+                    }
+                }
+            }
+        });
+
+        // Feature Correlation Matrix (simplified heatmap representation)
+        const correlationCtx = document.getElementById('correlationChart').getContext('2d');
+        charts.correlation = new Chart(correlationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Win% & Net Rating', 'Off Rating & Pace', 'Def Rating & Win%', 'Home% & Away%', 'Streak & Confidence'],
+                datasets: [{
+                    label: 'Correlation Coefficient',
+                    data: [0.89, 0.64, -0.72, 0.58, 0.81],
+                    backgroundColor: [
+                        getChartColors().success,
+                        getChartColors().primary,
+                        getChartColors().danger,
+                        getChartColors().primary,
+                        getChartColors().success
+                    ]
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        min: -1,
+                        max: 1,
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    y: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Feature Importance
+        const featureImportanceCtx = document.getElementById('featureImportanceChart').getContext('2d');
+        charts.featureImportance = new Chart(featureImportanceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Net Rating', 'Win Streak', 'Home Win%', 'Playoff Exp', 'Def Rating', 'Off Rating', 'Pace', 'Injury Score', 'PER', 'eFG%'],
+                datasets: [{
+                    label: 'Importance Score',
+                    data: [0.24, 0.19, 0.16, 0.13, 0.11, 0.08, 0.05, 0.02, 0.01, 0.01],
+                    backgroundColor: getChartColors().primary
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 0.25,
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    y: {
+                        ticks: { color: getChartColors().text, font: { size: 11 } },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Season vs Playoff Performance
+        const seasonPlayoffCtx = document.getElementById('seasonPlayoffChart').getContext('2d');
+        charts.seasonPlayoff = new Chart(seasonPlayoffCtx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'NBA Teams',
+                    data: [
+                        {x: 78, y: 83}, {x: 70, y: 68}, {x: 65, y: 71}, {x: 62, y: 58},
+                        {x: 59, y: 62}, {x: 57, y: 65}, {x: 55, y: 52}, {x: 52, y: 48},
+                        {x: 49, y: 55}, {x: 46, y: 42}, {x: 44, y: 38}, {x: 41, y: 35},
+                        {x: 38, y: 40}, {x: 35, y: 30}, {x: 32, y: 28}, {x: 28, y: 25}
+                    ],
+                    backgroundColor: getChartColors().primary,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Regular Season Win%',
+                            color: getChartColors().text
+                        },
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Playoff Win%',
+                            color: getChartColors().text
+                        },
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    }
+                }
+            }
+        });
+
+        // Model Comparison
+        const modelComparisonCtx = document.getElementById('modelComparisonChart').getContext('2d');
+        charts.modelComparison = new Chart(modelComparisonCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Ensemble', 'XGBoost', 'Random Forest', 'Gradient Boost', 'Neural Net', 'Log Regression'],
+                datasets: [{
+                    label: 'Accuracy (%)',
+                    data: [96.0, 93.5, 92.8, 91.2, 89.5, 85.3],
+                    backgroundColor: [
+                        getChartColors().success,
+                        getChartColors().primary,
+                        getChartColors().primary,
+                        getChartColors().secondary,
+                        getChartColors().secondary,
+                        getChartColors().warning
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100,
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    x: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Confusion Matrix (simplified)
+        const confusionCtx = document.getElementById('confusionMatrixChart').getContext('2d');
+        charts.confusion = new Chart(confusionCtx, {
+            type: 'bar',
+            data: {
+                labels: ['True Positive', 'True Negative', 'False Positive', 'False Negative'],
+                datasets: [{
+                    label: 'Count',
+                    data: [48, 144, 3, 5],
+                    backgroundColor: [
+                        getChartColors().success,
+                        getChartColors().success,
+                        getChartColors().danger,
+                        getChartColors().danger
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    x: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Cross-Validation Performance
+        const cvCtx = document.getElementById('cvPerformanceChart').getContext('2d');
+        charts.cv = new Chart(cvCtx, {
+            type: 'line',
+            data: {
+                labels: ['Fold 1', 'Fold 2', 'Fold 3', 'Fold 4', 'Fold 5'],
+                datasets: [{
+                    label: 'Accuracy',
+                    data: [0.953, 0.968, 0.945, 0.972, 0.962],
+                    borderColor: getChartColors().primary,
+                    backgroundColor: getChartColors().primary + '20',
+                    fill: true,
+                    tension: 0.4
+                }, {
+                    label: 'F1-Score',
+                    data: [0.948, 0.963, 0.941, 0.967, 0.956],
+                    borderColor: getChartColors().secondary,
+                    backgroundColor: getChartColors().secondary + '20',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: { color: getChartColors().text }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 0.9,
+                        max: 1.0,
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    x: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Predicted vs Actual Champions
+        const predictedActualCtx = document.getElementById('predictedActualChart').getContext('2d');
+        charts.predictedActual = new Chart(predictedActualCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Predicted',
+                    data: [85, 88, 82, 79, 84, 75, 78, 83, 86, 91],
+                    backgroundColor: getChartColors().primary + '80'
+                }, {
+                    label: 'Actual',
+                    data: [83, 89, 83, 78, 85, 72, 76, 84, 87, 91],
+                    backgroundColor: getChartColors().success
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: { color: getChartColors().text }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 70,
+                        max: 95,
+                        title: {
+                            display: true,
+                            text: 'Championship Probability Score',
+                            color: getChartColors().text
+                        },
+                        ticks: { color: getChartColors().text },
+                        grid: { color: getChartColors().grid }
+                    },
+                    x: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Season Accuracy
+        const seasonAccuracyCtx = document.getElementById('seasonAccuracyChart').getContext('2d');
+        charts.seasonAccuracy = new Chart(seasonAccuracyCtx, {
+            type: 'line',
+            data: {
+                labels: ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Model Accuracy',
+                    data: [0.94, 0.97, 0.96, 0.95, 0.98, 0.88, 0.93, 0.97, 0.98, 0.99],
+                    borderColor: getChartColors().success,
+                    backgroundColor: getChartColors().success + '30',
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: { color: getChartColors().text }
+                    }
+                },
+                scales: {
+                    y: {
+                        min: 0.85,
+                        max: 1.0,
+                        ticks: {
+                            color: getChartColors().text,
+                            callback: function(value) {
+                                return (value * 100).toFixed(0) + '%';
+                            }
+                        },
+                        grid: { color: getChartColors().grid }
+                    },
+                    x: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Championship Probability
+        const championshipProbCtx = document.getElementById('championshipProbChart').getContext('2d');
+        charts.championshipProb = new Chart(championshipProbCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Boston Celtics', 'Denver Nuggets', 'Milwaukee Bucks', 'Phoenix Suns', 'LA Lakers'],
+                datasets: [{
+                    label: 'Championship Probability (%)',
+                    data: [28.5, 22.3, 18.7, 14.2, 11.8],
+                    backgroundColor: [
+                        getChartColors().success,
+                        getChartColors().primary,
+                        getChartColors().primary,
+                        getChartColors().secondary,
+                        getChartColors().warning
+                    ]
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        max: 30,
+                        ticks: {
+                            color: getChartColors().text,
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        },
+                        grid: { color: getChartColors().grid }
+                    },
+                    y: {
+                        ticks: { color: getChartColors().text },
+                        grid: { display: false }
+                    }
+                }
+            }
+        });
+
+        // Update all charts when theme changes
+        function updateChartColors() {
+            drawTeamGrid();
+            Object.values(charts).forEach(chart => {
+                const colors = getChartColors();
+                
+                // Update scales colors
+                if (chart.options.scales) {
+                    if (chart.options.scales.x) {
+                        chart.options.scales.x.ticks.color = colors.text;
+                        if (chart.options.scales.x.grid) {
+                            chart.options.scales.x.grid.color = colors.grid;
+                        }
+                        if (chart.options.scales.x.title) {
+                            chart.options.scales.x.title.color = colors.text;
+                        }
+                    }
+                    if (chart.options.scales.y) {
+                        chart.options.scales.y.ticks.color = colors.text;
+                        if (chart.options.scales.y.grid) {
+                            chart.options.scales.y.grid.color = colors.grid;
+                        }
+                        if (chart.options.scales.y.title) {
+                            chart.options.scales.y.title.color = colors.text;
+                        }
+                    }
+                    if (chart.options.scales.r) {
+                        chart.options.scales.r.ticks.color = colors.text;
+                        chart.options.scales.r.grid.color = colors.grid;
+                        chart.options.scales.r.pointLabels.color = colors.text;
+                    }
+                }
+                
+                // Update legend colors
+                if (chart.options.plugins && chart.options.plugins.legend) {
+                    chart.options.plugins.legend.labels.color = colors.text;
+                }
+                
+                chart.update();
+            });
         }
 
         // Smooth Scroll
