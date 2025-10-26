@@ -922,7 +922,6 @@
         let logosLoaded = 0;
         const totalLogos = 30;
         let hoveredTeam = null;
-        let teamPositions = [];
         
         // Team stats data (2023-24 season)
         const teamStats = {
@@ -1001,10 +1000,6 @@
             };
             
             // Draw teams
-            // Clear team positions for new draw
-            teamPositions = [];
-            
-            // Draw teams
             teams.forEach((teamName, index) => {
                 const row = Math.floor(index / cols);
                 const col = index % cols;
@@ -1017,18 +1012,6 @@
                 const baseSize = 45;
                 const size = baseSize + (wins / 64) * 15;
                 
-                // Store position for hover detection
-                teamPositions.push({
-                    name: teamName,
-                    x: x,
-                    y: y,
-                    size: size,
-                    wins: wins
-                });
-                
-                // Check if this team is hovered
-                const isHovered = hoveredTeam === teamName;
-                
                 // Determine color based on wins
                 let tierColor;
                 if (wins >= 55) tierColor = colors.nbaBlue;
@@ -1036,12 +1019,12 @@
                 else if (wins >= 35) tierColor = colors.warning;
                 else tierColor = colors.danger;
                 
-                // Outer glow circle (enhanced when hovered)
-                mapCtx.shadowColor = tierColor + (isHovered ? '80' : '60');
-                mapCtx.shadowBlur = isHovered ? 25 : 15;
-                mapCtx.fillStyle = tierColor + (isHovered ? '35' : '25');
+                // Outer glow circle
+                mapCtx.shadowColor = tierColor + '60';
+                mapCtx.shadowBlur = 15;
+                mapCtx.fillStyle = tierColor + '25';
                 mapCtx.beginPath();
-                mapCtx.arc(x, y, size + (isHovered ? 8 : 5), 0, Math.PI * 2);
+                mapCtx.arc(x, y, size + 5, 0, Math.PI * 2);
                 mapCtx.fill();
                 mapCtx.shadowBlur = 0;
                 
@@ -1051,9 +1034,9 @@
                 mapCtx.arc(x, y, size, 0, Math.PI * 2);
                 mapCtx.fill();
                 
-                // Border (thicker when hovered)
+                // Border
                 mapCtx.strokeStyle = tierColor;
-                mapCtx.lineWidth = isHovered ? 4 : 3;
+                mapCtx.lineWidth = 3;
                 mapCtx.stroke();
                 
                 // Check if logo is loaded
@@ -1083,7 +1066,7 @@
                 
                 // Team name above
                 mapCtx.fillStyle = colors.text;
-                mapCtx.font = isHovered ? 'bold 17px Inter' : 'bold 15px Inter';
+                mapCtx.font = 'bold 15px Inter';
                 mapCtx.textAlign = 'center';
                 mapCtx.textBaseline = 'bottom';
                 mapCtx.shadowColor = colors.dark_bg === '#0f172a' ? 'rgba(0,0,0,0.8)' : 'rgba(255,255,255,0.8)';
@@ -1091,52 +1074,64 @@
                 mapCtx.fillText(teamName, x, y - size - 8);
                 
                 // Win count below
-                mapCtx.font = isHovered ? 'bold 16px Inter' : 'bold 14px Inter';
+                mapCtx.font = 'bold 14px Inter';
                 mapCtx.textBaseline = 'top';
                 mapCtx.fillText(wins + 'W', x, y + size + 8);
                 mapCtx.shadowBlur = 0;
-                
-                // Show detailed stats tooltip when hovered
-                if (isHovered && teamStats[teamName]) {
-                    const stats = teamStats[teamName];
-                    const tooltipWidth = 280;
-                    const tooltipHeight = 140;
-                    const tooltipX = x - tooltipWidth / 2;
-                    const tooltipY = y - size - tooltipHeight - 40;
-                    
-                    // Tooltip background
-                    mapCtx.shadowColor = 'rgba(0,0,0,0.5)';
-                    mapCtx.shadowBlur = 20;
-                    mapCtx.fillStyle = isDarkMode ? 'rgba(15, 23, 42, 0.98)' : 'rgba(255, 255, 255, 0.98)';
-                    mapCtx.fillRect(tooltipX, tooltipY, tooltipWidth, tooltipHeight);
-                    mapCtx.strokeStyle = tierColor;
-                    mapCtx.lineWidth = 3;
-                    mapCtx.strokeRect(tooltipX, tooltipY, tooltipWidth, tooltipHeight);
-                    mapCtx.shadowBlur = 0;
-                    
-                    // Team full name
-                    mapCtx.fillStyle = colors.text;
-                    mapCtx.font = 'bold 16px Inter';
-                    mapCtx.textAlign = 'center';
-                    mapCtx.fillText(stats.name, tooltipX + tooltipWidth / 2, tooltipY + 25);
-                    
-                    // Stats
-                    const statsY = tooltipY + 50;
-                    mapCtx.font = '13px Inter';
-                    mapCtx.textAlign = 'left';
-                    mapCtx.fillStyle = colors.text_secondary;
-                    
-                    mapCtx.fillText(`Record: ${stats.w}-${stats.l} (${(stats.pct * 100).toFixed(1)}%)`, tooltipX + 15, statsY);
-                    mapCtx.fillText(`Points Scored: ${stats.ps}`, tooltipX + 15, statsY + 22);
-                    mapCtx.fillText(`Points Allowed: ${stats.pa}`, tooltipX + 15, statsY + 44);
-                    mapCtx.fillText(`Net Rating: ${stats.diff > 0 ? '+' : ''}${stats.diff.toFixed(1)}`, tooltipX + 15, statsY + 66);
-                    
-                    // Net rating indicator
-                    const indicatorColor = stats.diff > 0 ? colors.success : colors.danger;
-                    mapCtx.fillStyle = indicatorColor;
-                    mapCtx.fillRect(tooltipX + tooltipWidth - 40, statsY + 60, 25, 12);
-                }
             });
+            
+            // Enhanced Legend - Centered at bottom
+            const legendWidth = 450;
+            const legendHeight = 170;
+            const legendX = (width - legendWidth) / 2;
+            const legendY = 770;
+            
+            // Legend background
+            mapCtx.fillStyle = colors.dark_bg === '#0f172a' ? 'rgba(30, 41, 59, 0.95)' : 'rgba(248, 250, 252, 0.95)';
+            mapCtx.fillRect(legendX, legendY, legendWidth, legendHeight);
+            mapCtx.strokeStyle = colors.primary;
+            mapCtx.lineWidth = 2;
+            mapCtx.strokeRect(legendX, legendY, legendWidth, legendHeight);
+            
+            // Legend title
+            mapCtx.font = 'bold 20px Inter';
+            mapCtx.fillStyle = colors.text;
+            mapCtx.textAlign = 'center';
+            mapCtx.shadowBlur = 0;
+            mapCtx.fillText('Performance Tiers', legendX + legendWidth / 2, legendY + 30);
+            
+            const tiers = [
+                {label: 'Elite (55+ wins)', color: colors.nbaBlue},
+                {label: 'Playoff (45-54 wins)', color: colors.success},
+                {label: 'Average (35-44 wins)', color: colors.warning},
+                {label: 'Rebuilding (<35 wins)', color: colors.danger}
+            ];
+            
+            const tierStartY = legendY + 60;
+            const tierSpacing = 30;
+            
+            tiers.forEach((tier, i) => {
+                const tierY = tierStartY + i * tierSpacing;
+                const circleX = legendX + 40;
+                
+                // Circle
+                mapCtx.fillStyle = tier.color + '40';
+                mapCtx.beginPath();
+                mapCtx.arc(circleX, tierY, 12, 0, Math.PI * 2);
+                mapCtx.fill();
+                
+                mapCtx.strokeStyle = tier.color;
+                mapCtx.lineWidth = 2.5;
+                mapCtx.stroke();
+                
+                // Label
+                mapCtx.fillStyle = colors.text;
+                mapCtx.font = '16px Inter';
+                mapCtx.textAlign = 'left';
+                mapCtx.textBaseline = 'middle';
+                mapCtx.fillText(tier.label, circleX + 25, tierY);
+            });
+        }
         
         // Load team logos
         const logoUrls = [
@@ -1199,44 +1194,7 @@
             hoveredTeam = null; // Reset hover on resize
             drawTeamGrid();
         });
-        // Mouse interaction for team map
-        mapCanvas.addEventListener('mousemove', (e) => {
-            const rect = mapCanvas.getBoundingClientRect();
-            const scaleX = mapCanvas.width / rect.width;
-            const scaleY = mapCanvas.height / rect.height;
-            const mouseX = (e.clientX - rect.left) * scaleX;
-            const mouseY = (e.clientY - rect.top) * scaleY;
-            
-            let foundTeam = null;
-            
-            // Check if mouse is over any team
-            for (const team of teamPositions) {
-                const distance = Math.sqrt(
-                    Math.pow(mouseX - team.x, 2) + 
-                    Math.pow(mouseY - team.y, 2)
-                );
-                
-                if (distance <= team.size) {
-                    foundTeam = team.name;
-                    break;
-                }
-            }
-            
-            // Only redraw if hover state changed
-            if (foundTeam !== hoveredTeam) {
-                hoveredTeam = foundTeam;
-                mapCanvas.style.cursor = foundTeam ? 'pointer' : 'default';
-                drawTeamGrid();
-            }
-        });
-        
-        mapCanvas.addEventListener('mouseleave', () => {
-            if (hoveredTeam !== null) {
-                hoveredTeam = null;
-                mapCanvas.style.cursor = 'default';
-                drawTeamGrid();
-            }
-        });
+
         // Conference Distribution Chart
         const conferenceCtx = document.getElementById('conferenceChart').getContext('2d');
         charts.conference = new Chart(conferenceCtx, {
