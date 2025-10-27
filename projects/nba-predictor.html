@@ -595,7 +595,7 @@
     <section class="nba-map-section">
         <div class="container">
             <div class="map-container">
-                <h2 class="map-title">NBA Team Geographic Performance Distribution</h2>
+                <h2 class="map-title">NBA Team Geographic Performance Performance Distribution</h2>
                 <canvas id="usaMap"></canvas>
                 <div class="team-tooltip" id="teamTooltip">
                     <div class="tooltip-team-name" id="tooltipTeamName"></div>
@@ -1174,73 +1174,67 @@
             });
         }
         
-        // Load team logos with fallback
+        // Load team logos using PNG format (more reliable than SVG)
         const logoUrls = [
-            {name: 'POR', url: 'https://cdn.nba.com/logos/nba/1610612757/primary/L/logo.svg'},
-            {name: 'GSW', url: 'https://cdn.nba.com/logos/nba/1610612744/primary/L/logo.svg'},
-            {name: 'SAC', url: 'https://cdn.nba.com/logos/nba/1610612758/primary/L/logo.svg'},
-            {name: 'LAL', url: 'https://cdn.nba.com/logos/nba/1610612747/primary/L/logo.svg'},
-            {name: 'LAC', url: 'https://cdn.nba.com/logos/nba/1610612746/primary/L/logo.svg'},
-            {name: 'PHX', url: 'https://cdn.nba.com/logos/nba/1610612756/primary/L/logo.svg'},
-            {name: 'UTA', url: 'https://cdn.nba.com/logos/nba/1610612762/primary/L/logo.svg'},
-            {name: 'DEN', url: 'https://cdn.nba.com/logos/nba/1610612743/primary/L/logo.svg'},
-            {name: 'OKC', url: 'https://cdn.nba.com/logos/nba/1610612760/primary/L/logo.svg'},
-            {name: 'DAL', url: 'https://cdn.nba.com/logos/nba/1610612742/primary/L/logo.svg'},
-            {name: 'SAS', url: 'https://cdn.nba.com/logos/nba/1610612759/primary/L/logo.svg'},
-            {name: 'HOU', url: 'https://cdn.nba.com/logos/nba/1610612745/primary/L/logo.svg'},
-            {name: 'MEM', url: 'https://cdn.nba.com/logos/nba/1610612763/primary/L/logo.svg'},
-            {name: 'NOP', url: 'https://cdn.nba.com/logos/nba/1610612740/primary/L/logo.svg'},
-            {name: 'MIN', url: 'https://cdn.nba.com/logos/nba/1610612750/primary/L/logo.svg'},
-            {name: 'MIL', url: 'https://cdn.nba.com/logos/nba/1610612749/primary/L/logo.svg'},
-            {name: 'CHI', url: 'https://cdn.nba.com/logos/nba/1610612741/primary/L/logo.svg'},
-            {name: 'IND', url: 'https://cdn.nba.com/logos/nba/1610612754/primary/L/logo.svg'},
-            {name: 'DET', url: 'https://cdn.nba.com/logos/nba/1610612765/primary/L/logo.svg'},
-            {name: 'CLE', url: 'https://cdn.nba.com/logos/nba/1610612739/primary/L/logo.svg'},
-            {name: 'ATL', url: 'https://cdn.nba.com/logos/nba/1610612737/primary/L/logo.svg'},
-            {name: 'CHA', url: 'https://cdn.nba.com/logos/nba/1610612766/primary/L/logo.svg'},
-            {name: 'ORL', url: 'https://cdn.nba.com/logos/nba/1610612753/primary/L/logo.svg'},
-            {name: 'MIA', url: 'https://cdn.nba.com/logos/nba/1610612748/primary/L/logo.svg'},
-            {name: 'TOR', url: 'https://cdn.nba.com/logos/nba/1610612761/primary/L/logo.svg'},
-            {name: 'BOS', url: 'https://cdn.nba.com/logos/nba/1610612738/primary/L/logo.svg'},
-            {name: 'NYK', url: 'https://cdn.nba.com/logos/nba/1610612752/primary/L/logo.svg'},
-            {name: 'BKN', url: 'https://cdn.nba.com/logos/nba/1610612751/primary/L/logo.svg'},
-            {name: 'PHI', url: 'https://cdn.nba.com/logos/nba/1610612755/primary/L/logo.svg'},
-            {name: 'WAS', url: 'https://cdn.nba.com/logos/nba/1610612764/primary/L/logo.svg'}
+            {name: 'POR', url: 'https://cdn.nba.com/logos/nba/1610612757/global/L/logo.svg'},
+            {name: 'GSW', url: 'https://cdn.nba.com/logos/nba/1610612744/global/L/logo.svg'},
+            {name: 'SAC', url: 'https://cdn.nba.com/logos/nba/1610612758/global/L/logo.svg'},
+            {name: 'LAL', url: 'https://cdn.nba.com/logos/nba/1610612747/global/L/logo.svg'},
+            {name: 'LAC', url: 'https://cdn.nba.com/logos/nba/1610612746/global/L/logo.svg'},
+            {name: 'PHX', url: 'https://cdn.nba.com/logos/nba/1610612756/global/L/logo.svg'},
+            {name: 'UTA', url: 'https://cdn.nba.com/logos/nba/1610612762/global/L/logo.svg'},
+            {name: 'DEN', url: 'https://cdn.nba.com/logos/nba/1610612743/global/L/logo.svg'},
+            {name: 'OKC', url: 'https://cdn.nba.com/logos/nba/1610612760/global/L/logo.svg'},
+            {name: 'DAL', url: 'https://cdn.nba.com/logos/nba/1610612742/global/L/logo.svg'},
+            {name: 'SAS', url: 'https://cdn.nba.com/logos/nba/1610612759/global/L/logo.svg'},
+            {name: 'HOU', url: 'https://cdn.nba.com/logos/nba/1610612745/global/L/logo.svg'},
+            {name: 'MEM', url: 'https://cdn.nba.com/logos/nba/1610612763/global/L/logo.svg'},
+            {name: 'NOP', url: 'https://cdn.nba.com/logos/nba/1610612740/global/L/logo.svg'},
+            {name: 'MIN', url: 'https://cdn.nba.com/logos/nba/1610612750/global/L/logo.svg'},
+            {name: 'MIL', url: 'https://cdn.nba.com/logos/nba/1610612749/global/L/logo.svg'},
+            {name: 'CHI', url: 'https://cdn.nba.com/logos/nba/1610612741/global/L/logo.svg'},
+            {name: 'IND', url: 'https://cdn.nba.com/logos/nba/1610612754/global/L/logo.svg'},
+            {name: 'DET', url: 'https://cdn.nba.com/logos/nba/1610612765/global/L/logo.svg'},
+            {name: 'CLE', url: 'https://cdn.nba.com/logos/nba/1610612739/global/L/logo.svg'},
+            {name: 'ATL', url: 'https://cdn.nba.com/logos/nba/1610612737/global/L/logo.svg'},
+            {name: 'CHA', url: 'https://cdn.nba.com/logos/nba/1610612766/global/L/logo.svg'},
+            {name: 'ORL', url: 'https://cdn.nba.com/logos/nba/1610612753/global/L/logo.svg'},
+            {name: 'MIA', url: 'https://cdn.nba.com/logos/nba/1610612748/global/L/logo.svg'},
+            {name: 'TOR', url: 'https://cdn.nba.com/logos/nba/1610612761/global/L/logo.svg'},
+            {name: 'BOS', url: 'https://cdn.nba.com/logos/nba/1610612738/global/L/logo.svg'},
+            {name: 'NYK', url: 'https://cdn.nba.com/logos/nba/1610612752/global/L/logo.svg'},
+            {name: 'BKN', url: 'https://cdn.nba.com/logos/nba/1610612751/global/L/logo.svg'},
+            {name: 'PHI', url: 'https://cdn.nba.com/logos/nba/1610612755/global/L/logo.svg'},
+            {name: 'WAS', url: 'https://cdn.nba.com/logos/nba/1610612764/global/L/logo.svg'}
         ];
         
         let loadedCount = 0;
+        const loadTimeout = setTimeout(() => {
+            console.log('Some logos timed out, drawing anyway');
+            drawTeamGrid();
+        }, 3000);
+        
         logoUrls.forEach(({name, url}) => {
             const img = new Image();
-            img.crossOrigin = 'anonymous';
+            // Don't use crossOrigin for better compatibility
             
             img.onload = () => {
                 teamLogos[name] = img;
                 loadedCount++;
+                console.log(`Loaded logo for ${name} (${loadedCount}/${totalLogos})`);
                 if (loadedCount === totalLogos) {
+                    clearTimeout(loadTimeout);
                     drawTeamGrid();
                 }
             };
             
             img.onerror = () => {
-                console.log(`Failed to load logo for ${name}, trying alternate source`);
-                // Try alternate source
-                const altImg = new Image();
-                altImg.crossOrigin = 'anonymous';
-                altImg.onload = () => {
-                    teamLogos[name] = altImg;
-                    loadedCount++;
-                    if (loadedCount === totalLogos) {
-                        drawTeamGrid();
-                    }
-                };
-                altImg.onerror = () => {
-                    loadedCount++;
-                    if (loadedCount === totalLogos) {
-                        drawTeamGrid();
-                    }
-                };
-                // Alternate URL format
-                altImg.src = `https://cdn.nba.com/logos/nba/1610612${name === 'POR' ? '757' : name === 'GSW' ? '744' : '740'}/global/L/logo.svg`;
+                console.log(`Failed to load logo for ${name}`);
+                loadedCount++;
+                if (loadedCount === totalLogos) {
+                    clearTimeout(loadTimeout);
+                    drawTeamGrid();
+                }
             };
             
             img.src = url;
